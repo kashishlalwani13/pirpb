@@ -1,0 +1,23 @@
+project:
+  name: "pirpb"
+  seed: 13
+
+io:
+  data_dir: "data"
+  serp_dir: "serp"
+  results_dir: "results"
+  logs_dir: "logs"
+
+search:
+  engine: "brave"
+  top_k: 20
+
+paraphrase:
+  per_query: 2
+  cosine_min: 0.85
+
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"
+
+metrics:
+  rbo_p: 0.9
