@@ -1,0 +1,33 @@
+category,query,paraphrase,cosine
+google,Google Cloud API docs,Google Cloud API docs — quick guide,0.9479
+google,Google Cloud API docs,Google Cloud API docs (overview and examples),0.9374
+google,TensorFlow GitHub repository,TensorFlow GitHub repository — quick guide,0.9422
+google,TensorFlow GitHub repository,TensorFlow GitHub repository (overview and examples),0.9077
+google,Firebase authentication example,Firebase authentication example — quick guide,0.9602
+google,Firebase authentication example,Firebase authentication example (overview and examples),0.9404
+google,Google BigQuery pricing,Google BigQuery pricing — quick guide,0.9661
+google,Google BigQuery pricing,Google BigQuery pricing (overview and examples),0.8969
+microsoft,Azure ML documentation,Azure ML documentation — quick guide,0.9703
+microsoft,Azure ML documentation,Azure ML documentation (overview and examples),0.9571
+microsoft,Power BI connector guide,Power BI connector guide — quick guide,0.9847
+microsoft,Power BI connector guide,Power BI connector guide (overview and examples),0.9285
+microsoft,Visual Studio Code extensions list,Visual Studio Code extensions list — quick guide,0.9721
+microsoft,Visual Studio Code extensions list,Visual Studio Code extensions list (overview and examples),0.929
+microsoft,Azure Functions Python tutorial,Azure Functions Python tutorial — quick guide,0.9832
+microsoft,Azure Functions Python tutorial,Azure Functions Python tutorial (overview and examples),0.9771
+ibm,IBM Watson NLP API reference,IBM Watson NLP API reference — quick guide,0.9778
+ibm,IBM Watson NLP API reference,IBM Watson NLP API reference (overview and examples),0.9731
+ibm,IBM Cloud CLI guide,IBM Cloud CLI guide — quick guide,0.9898
+ibm,IBM Cloud CLI guide,IBM Cloud CLI guide (overview and examples),0.9603
+ibm,SPSS model training example,SPSS model training example — quick guide,0.9661
+ibm,SPSS model training example,SPSS model training example (overview and examples),0.955
+ibm,IBM Cloud pricing calculator,IBM Cloud pricing calculator — quick guide,0.9806
+ibm,IBM Cloud pricing calculator,IBM Cloud pricing calculator (overview and examples),0.9725
+neutral,open-source NLP model repository,open-source NLP model repository — quick guide,0.9657
+neutral,open-source NLP model repository,open-source NLP model repository (overview and examples),0.9614
+neutral,data visualization in Python,data visualization in Python — quick guide,0.9375
+neutral,data visualization in Python,data visualization in Python (overview and examples),0.9422
+neutral,Kaggle competition for regression models,Kaggle competition for regression models — quick guide,0.9709
+neutral,Kaggle competition for regression models,Kaggle competition for regression models (overview and examples),0.9723
+neutral,PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison — quick guide,0.9809
+neutral,PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison (overview and examples),0.9757

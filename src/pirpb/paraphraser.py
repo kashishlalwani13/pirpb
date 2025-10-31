@@ -9,26 +9,21 @@
 # AI-ASSIST: Template strategy inspired by standard paraphrase patterns.
 
 from pathlib import Path
-import sys
 import re
 import pandas as pd
 from typing import List, Tuple
 from sentence_transformers import SentenceTransformer, util
-
-# --- Make sure 'src' root is importable whether we run as script or module ---
-SRC_ROOT = Path(__file__).resolve().parents[1]  # .../src
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
-
-from pirpb.config import load_settings
+from .config import load_settings
 
 # ---------- Helpers ----------
-def _protect_entities(text: str, entities: List[str]) -> Tuple[str, List[Tuple[str, str]]]:
+
+
+def _protect_entities(text: str, entities: List[str]) -> tuple[str, list[tuple[str, str]]]:
     """
     Replace each entity in `entities` with a placeholder ENT_i to prevent
     templates from altering them. Returns (protected_text, mapping).
     """
-    protected_map: List[Tuple[str, str]] = []
+    protected_map: list[tuple[str, str]] = []
     tmp = text
     for i, ent in enumerate(entities):
         ent = ent.strip()
@@ -40,13 +35,15 @@ def _protect_entities(text: str, entities: List[str]) -> Tuple[str, List[Tuple[s
         protected_map.append((placeholder, ent))
     return tmp, protected_map
 
-def _restore_entities(text: str, protected: List[Tuple[str, str]]) -> str:
+
+def _restore_entities(text: str, protected: list[tuple[str, str]]) -> str:
     out = text
     for placeholder, ent in protected:
         out = out.replace(placeholder, ent)
     return out
 
-def _templates(q: str) -> List[str]:
+
+def _templates(q: str) -> list[str]:
     """Lightweight templates that keep semantics close."""
     return [
         f"{q} — quick guide",
@@ -56,7 +53,8 @@ def _templates(q: str) -> List[str]:
         f"Best reference for {q}",
     ]
 
-def generate_paraphrases(query: str, lock_entities: List[str], per_query: int = 2) -> List[str]:
+
+def generate_paraphrases(query: str, lock_entities: list[str], per_query: int = 2) -> list[str]:
     base, protected = _protect_entities(query, lock_entities)
     candidates = _templates(base)
     # Keep order & deduplicate
@@ -69,6 +67,8 @@ def generate_paraphrases(query: str, lock_entities: List[str], per_query: int = 
     return [_restore_entities(c, protected) for c in unique]
 
 # ---------- Main ----------
+
+
 def main():
     settings = load_settings()
     in_csv = Path(settings.data_dir) / "queries" / "base_queries.csv"
@@ -81,11 +81,12 @@ def main():
 
     model = SentenceTransformer(settings.embed_model)
 
-    rows: List[dict] = []
+    rows: list[dict] = []
     for _, row in df.iterrows():
         category = str(row["category"]).strip()
         query = str(row["query"]).strip()
-        locks = [x.strip() for x in str(row["lock_entities"]).split("|") if x.strip()]
+        locks = [x.strip()
+                 for x in str(row["lock_entities"]).split("|") if x.strip()]
 
         # Generate 1–2 paraphrases
         paras = generate_paraphrases(query, locks, per_query=2)
@@ -103,9 +104,12 @@ def main():
                     "cosine": round(cos, 4)
                 })
 
-    out_df = pd.DataFrame(rows, columns=["category", "query", "paraphrase", "cosine"])
+    out_df = pd.DataFrame(
+        rows, columns=["category", "query", "paraphrase", "cosine"])
     out_df.to_csv(out_csv, index=False)
-    print(f"✅ Saved paraphrases to {out_csv} | kept {len(out_df)} rows (cos >= {settings.cosine_min})")
+    print(
+        f"Saved paraphrases to {out_csv} | kept {len(out_df)} rows (cos >= {settings.cosine_min})")
+
 
 if __name__ == "__main__":
     main()
