@@ -1,0 +1,33 @@
+seed_query,paraphrase,k_used,p,rbo,pir
+Google Cloud API docs,Google Cloud API docs — quick guide,10,0.9,0.09828424343571428,0.9017157565642857
+Google Cloud API docs,Google Cloud API docs (overview and examples),10,0.9,0.4120935047714286,0.5879064952285714
+TensorFlow GitHub repository,TensorFlow GitHub repository — quick guide,10,0.9,0.10659947258571431,0.8934005274142857
+TensorFlow GitHub repository,TensorFlow GitHub repository (overview and examples),10,0.9,0.2585300214857143,0.7414699785142858
+Firebase authentication example,Firebase authentication example — quick guide,10,0.9,0.2505684868714285,0.7494315131285715
+Firebase authentication example,Firebase authentication example (overview and examples),10,0.9,0.2505684868714285,0.7494315131285715
+Google BigQuery pricing,Google BigQuery pricing — quick guide,10,0.9,0.5012477792071428,0.4987522207928572
+Google BigQuery pricing,Google BigQuery pricing (overview and examples),10,0.9,0.49385273030714283,0.5061472696928572
+Azure ML documentation,Azure ML documentation — quick guide,10,0.9,0.34507221602142857,0.6549277839785714
+Azure ML documentation,Azure ML documentation (overview and examples),10,0.9,0.4976642303071429,0.5023357696928571
+Power BI connector guide,Power BI connector guide — quick guide,10,0.9,0.04352501790000001,0.9564749821
+Power BI connector guide,Power BI connector guide (overview and examples),10,0.9,0.13702629233571428,0.8629737076642857
+Visual Studio Code extensions list,Visual Studio Code extensions list — quick guide,10,0.9,0.5823777482071428,0.41762225179285717
+Visual Studio Code extensions list,Visual Studio Code extensions list (overview and examples),10,0.9,0.6189119737428572,0.3810880262571428
+Azure Functions Python tutorial,Azure Functions Python tutorial — quick guide,10,0.9,0.4973399737428571,0.5026600262571429
+Azure Functions Python tutorial,Azure Functions Python tutorial (overview and examples),10,0.9,0.7718402112785714,0.2281597887214286
+IBM Watson NLP API reference,IBM Watson NLP API reference — quick guide,10,0.9,0.5394734916428571,0.4605265083571429
+IBM Watson NLP API reference,IBM Watson NLP API reference (overview and examples),10,0.9,0.4831009630714286,0.5168990369285714
+IBM Cloud CLI guide,IBM Cloud CLI guide — quick guide,10,0.9,0.4714655226428571,0.5285344773571429
+IBM Cloud CLI guide,IBM Cloud CLI guide (overview and examples),10,0.9,0.5713368281071428,0.4286631718928572
+SPSS model training example,SPSS model training example — quick guide,10,0.9,0.13702629233571428,0.8629737076642857
+SPSS model training example,SPSS model training example (overview and examples),10,0.9,0.29556848687142856,0.7044315131285714
+IBM Cloud pricing calculator,IBM Cloud pricing calculator — quick guide,10,0.9,0.2702842434357143,0.7297157565642858
+IBM Cloud pricing calculator,IBM Cloud pricing calculator (overview and examples),10,0.9,0.5996607171785714,0.4003392828214286
+open-source NLP model repository,open-source NLP model repository — quick guide,10,0.9,0.04950372915000001,0.95049627085
+open-source NLP model repository,open-source NLP model repository (overview and examples),10,0.9,0.3633129904857143,0.6366870095142857
+data visualization in Python,data visualization in Python — quick guide,10,0.9,0.1164409725857143,0.8835590274142857
+data visualization in Python,data visualization in Python (overview and examples),10,0.9,0.26671795945714283,0.7332820405428572
+Kaggle competition for regression models,Kaggle competition for regression models — quick guide,10,0.9,0.12528424343571426,0.8747157565642858
+Kaggle competition for regression models,Kaggle competition for regression models (overview and examples),10,0.9,0.2905057303071429,0.7094942696928571
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison — quick guide,10,0.9,0.6656894642285713,0.33431053577142866
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison (overview and examples),10,0.9,0.5715394809428571,0.4284605190571429
