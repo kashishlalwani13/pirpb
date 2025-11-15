@@ -1,0 +1,154 @@
+.
+├── configs
+│   └── config.yaml
+├── data
+│   ├── paraphrases
+│   │   └── paraphrases.csv
+│   └── queries
+│       ├── base_queries.csv
+│       └── focal_items.csv
+├── docs
+│   ├── pir_google.csv
+│   ├── pir_hist_google.png
+│   └── stage_d_metrics.log
+├── logs
+│   └── stage_d_metrics.log
+├── project_tree.txt
+├── results
+│   ├── pir_google.csv
+│   └── pir_hist_google.png
+├── scripts
+│   ├── run_google_cse.sh
+│   ├── run_metrics_google.sh
+│   ├── run_paraphraser.sh
+│   └── run_serper.sh
+├── serp
+│   ├── cache
+│   │   ├── query_0.json
+│   │   ├── query_1.json
+│   │   ├── query_10.json
+│   │   ├── query_11.json
+│   │   ├── query_12.json
+│   │   ├── query_13.json
+│   │   ├── query_14.json
+│   │   ├── query_15.json
+│   │   ├── query_16.json
+│   │   ├── query_17.json
+│   │   ├── query_18.json
+│   │   ├── query_19.json
+│   │   ├── query_2.json
+│   │   ├── query_20.json
+│   │   ├── query_21.json
+│   │   ├── query_22.json
+│   │   ├── query_23.json
+│   │   ├── query_24.json
+│   │   ├── query_25.json
+│   │   ├── query_26.json
+│   │   ├── query_27.json
+│   │   ├── query_28.json
+│   │   ├── query_29.json
+│   │   ├── query_3.json
+│   │   ├── query_30.json
+│   │   ├── query_31.json
+│   │   ├── query_4.json
+│   │   ├── query_5.json
+│   │   ├── query_6.json
+│   │   ├── query_7.json
+│   │   ├── query_8.json
+│   │   └── query_9.json
+│   ├── cache_google
+│   │   ├── google_seed_101095277.json
+│   │   ├── google_seed_101185202.json
+│   │   ├── google_seed_107227108.json
+│   │   ├── google_seed_120972089.json
+│   │   ├── google_seed_12415609.json
+│   │   ├── google_seed_125163914.json
+│   │   ├── google_seed_126504272.json
+│   │   ├── google_seed_141199336.json
+│   │   ├── google_seed_142290191.json
+│   │   ├── google_seed_142934382.json
+│   │   ├── google_seed_147521788.json
+│   │   ├── google_seed_171308652.json
+│   │   ├── google_seed_17223119.json
+│   │   ├── google_seed_174826274.json
+│   │   ├── google_seed_177162049.json
+│   │   ├── google_seed_190580725.json
+│   │   ├── google_seed_19237104.json
+│   │   ├── google_seed_199907835.json
+│   │   ├── google_seed_209828946.json
+│   │   ├── google_seed_212992371.json
+│   │   ├── google_seed_212996010.json
+│   │   ├── google_seed_216766775.json
+│   │   ├── google_seed_219329143.json
+│   │   ├── google_seed_223374022.json
+│   │   ├── google_seed_230325853.json
+│   │   ├── google_seed_23575460.json
+│   │   ├── google_seed_237268012.json
+│   │   ├── google_seed_246435555.json
+│   │   ├── google_seed_249237804.json
+│   │   ├── google_seed_256146583.json
+│   │   ├── google_seed_258814149.json
+│   │   ├── google_seed_26292623.json
+│   │   ├── google_seed_30045788.json
+│   │   ├── google_seed_31505393.json
+│   │   ├── google_seed_35679227.json
+│   │   ├── google_seed_45556552.json
+│   │   ├── google_seed_47422629.json
+│   │   ├── google_seed_57698536.json
+│   │   ├── google_seed_58720295.json
+│   │   ├── google_seed_62010685.json
+│   │   ├── google_seed_62330495.json
+│   │   ├── google_seed_65560606.json
+│   │   ├── google_seed_6688437.json
+│   │   ├── google_seed_678047.json
+│   │   ├── google_seed_71773520.json
+│   │   ├── google_seed_73789449.json
+│   │   ├── google_seed_76168006.json
+│   │   ├── google_seed_78272630.json
+│   │   ├── query_0.json
+│   │   ├── query_1.json
+│   │   ├── query_10.json
+│   │   ├── query_11.json
+│   │   ├── query_12.json
+│   │   ├── query_13.json
+│   │   ├── query_14.json
+│   │   ├── query_15.json
+│   │   ├── query_16.json
+│   │   ├── query_17.json
+│   │   ├── query_18.json
+│   │   ├── query_19.json
+│   │   ├── query_2.json
+│   │   ├── query_20.json
+│   │   ├── query_21.json
+│   │   ├── query_22.json
+│   │   ├── query_23.json
+│   │   ├── query_24.json
+│   │   ├── query_25.json
+│   │   ├── query_26.json
+│   │   ├── query_27.json
+│   │   ├── query_28.json
+│   │   ├── query_29.json
+│   │   ├── query_3.json
+│   │   ├── query_30.json
+│   │   ├── query_31.json
+│   │   ├── query_4.json
+│   │   ├── query_5.json
+│   │   ├── query_6.json
+│   │   ├── query_7.json
+│   │   ├── query_8.json
+│   │   └── query_9.json
+│   ├── serp_google.csv
+│   └── serp_serper.csv
+└── src
+    └── pirpb
+        ├── __init__.py
+        ├── __pycache__
+        ├── config.py
+        ├── item_pir.py
+        ├── metrics.py
+        ├── paraphraser.py
+        ├── search_google_cse.py
+        ├── search_seeds_only.py
+        └── search_serper.py
+
+15 directories, 137 files

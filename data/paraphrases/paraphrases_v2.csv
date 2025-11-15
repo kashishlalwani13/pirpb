@@ -1,0 +1,225 @@
+base_query,paraphrase_query,cosine_similarity,similarity_bin,template_level
+Google Cloud API docs,Google Cloud API docs,1.0,high,high
+Google Cloud API docs,Google Cloud API docs official documentation,0.8656,medium,high
+Google Cloud API docs,Google Cloud API docs detailed guide,0.8466,medium,high
+Google Cloud API docs,Google Cloud API docs docs and tutorials,0.8623,medium,high
+Google Cloud API docs,step-by-step guide for Google Cloud API docs,0.8806,medium,medium
+Google Cloud API docs,Google Cloud API docs for beginners,0.8933,medium,medium
+Google Cloud API docs,Google Cloud API docs reference and best practices,0.8156,medium,medium
+Google Cloud API docs,how to get started with Google Cloud API docs,0.8742,medium,medium
+Google Cloud API docs,Google Cloud API docs overview and usage examples,0.8423,medium,medium
+Google Cloud API docs,when should developers rely on Google Cloud API docs in real projects,0.6988,low,low
+Google Cloud API docs,deep dive explaining how Google Cloud API docs works end-to-end,0.7644,medium,low
+Google Cloud API docs,"use cases, limitations and integration patterns for Google Cloud API docs",0.7782,medium,low
+Google Cloud API docs,comparison of Google Cloud API docs with similar cloud services,0.753,medium,low
+Google Cloud API docs,best resources to master Google Cloud API docs for production workloads,0.7009,medium,low
+TensorFlow GitHub repository,TensorFlow GitHub repository,1.0,high,high
+TensorFlow GitHub repository,TensorFlow GitHub repository official documentation,0.9028,high,high
+TensorFlow GitHub repository,TensorFlow GitHub repository detailed guide,0.9087,high,high
+TensorFlow GitHub repository,TensorFlow GitHub repository docs and tutorials,0.8959,medium,high
+TensorFlow GitHub repository,step-by-step guide for TensorFlow GitHub repository,0.8857,medium,medium
+TensorFlow GitHub repository,TensorFlow GitHub repository for beginners,0.9302,high,medium
+TensorFlow GitHub repository,TensorFlow GitHub repository reference and best practices,0.8581,medium,medium
+TensorFlow GitHub repository,how to get started with TensorFlow GitHub repository,0.895,medium,medium
+TensorFlow GitHub repository,TensorFlow GitHub repository overview and usage examples,0.8999,medium,medium
+TensorFlow GitHub repository,when should developers rely on TensorFlow GitHub repository in real projects,0.738,medium,low
+TensorFlow GitHub repository,deep dive explaining how TensorFlow GitHub repository works end-to-end,0.787,medium,low
+TensorFlow GitHub repository,"use cases, limitations and integration patterns for TensorFlow GitHub repository",0.8088,medium,low
+TensorFlow GitHub repository,comparison of TensorFlow GitHub repository with similar cloud services,0.7804,medium,low
+TensorFlow GitHub repository,best resources to master TensorFlow GitHub repository for production workloads,0.7864,medium,low
+Firebase authentication example,Firebase authentication example,1.0,high,high
+Firebase authentication example,Firebase authentication example official documentation,0.8853,medium,high
+Firebase authentication example,Firebase authentication example detailed guide,0.9533,high,high
+Firebase authentication example,Firebase authentication example docs and tutorials,0.9016,high,high
+Firebase authentication example,step-by-step guide for Firebase authentication example,0.917,high,medium
+Firebase authentication example,Firebase authentication example for beginners,0.9581,high,medium
+Firebase authentication example,Firebase authentication example reference and best practices,0.8827,medium,medium
+Firebase authentication example,how to get started with Firebase authentication example,0.9293,high,medium
+Firebase authentication example,Firebase authentication example overview and usage examples,0.9458,high,medium
+Firebase authentication example,when should developers rely on Firebase authentication example in real projects,0.7175,medium,low
+Firebase authentication example,deep dive explaining how Firebase authentication example works end-to-end,0.82,medium,low
+Firebase authentication example,"use cases, limitations and integration patterns for Firebase authentication example",0.8388,medium,low
+Firebase authentication example,comparison of Firebase authentication example with similar cloud services,0.7881,medium,low
+Firebase authentication example,best resources to master Firebase authentication example for production workloads,0.6745,low,low
+Google BigQuery pricing,Google BigQuery pricing,1.0,high,high
+Google BigQuery pricing,Google BigQuery pricing official documentation,0.8922,medium,high
+Google BigQuery pricing,Google BigQuery pricing detailed guide,0.9189,high,high
+Google BigQuery pricing,Google BigQuery pricing docs and tutorials,0.8343,medium,high
+Google BigQuery pricing,step-by-step guide for Google BigQuery pricing,0.8578,medium,medium
+Google BigQuery pricing,Google BigQuery pricing for beginners,0.9227,high,medium
+Google BigQuery pricing,Google BigQuery pricing reference and best practices,0.8719,medium,medium
+Google BigQuery pricing,how to get started with Google BigQuery pricing,0.8813,medium,medium
+Google BigQuery pricing,Google BigQuery pricing overview and usage examples,0.8929,medium,medium
+Google BigQuery pricing,when should developers rely on Google BigQuery pricing in real projects,0.7632,medium,low
+Google BigQuery pricing,deep dive explaining how Google BigQuery pricing works end-to-end,0.7813,medium,low
+Google BigQuery pricing,"use cases, limitations and integration patterns for Google BigQuery pricing",0.8197,medium,low
+Google BigQuery pricing,comparison of Google BigQuery pricing with similar cloud services,0.8359,medium,low
+Google BigQuery pricing,best resources to master Google BigQuery pricing for production workloads,0.7583,medium,low
+Azure ML documentation,Azure ML documentation,1.0,high,high
+Azure ML documentation,Azure ML documentation official documentation,0.9692,high,high
+Azure ML documentation,Azure ML documentation detailed guide,0.9618,high,high
+Azure ML documentation,Azure ML documentation docs and tutorials,0.9258,high,high
+Azure ML documentation,step-by-step guide for Azure ML documentation,0.9027,high,medium
+Azure ML documentation,Azure ML documentation for beginners,0.9219,high,medium
+Azure ML documentation,Azure ML documentation reference and best practices,0.8955,medium,medium
+Azure ML documentation,how to get started with Azure ML documentation,0.9145,high,medium
+Azure ML documentation,Azure ML documentation overview and usage examples,0.9446,high,medium
+Azure ML documentation,when should developers rely on Azure ML documentation in real projects,0.7259,medium,low
+Azure ML documentation,deep dive explaining how Azure ML documentation works end-to-end,0.8535,medium,low
+Azure ML documentation,"use cases, limitations and integration patterns for Azure ML documentation",0.8011,medium,low
+Azure ML documentation,comparison of Azure ML documentation with similar cloud services,0.8475,medium,low
+Azure ML documentation,best resources to master Azure ML documentation for production workloads,0.7822,medium,low
+Power BI connector guide,Power BI connector guide,1.0,high,high
+Power BI connector guide,Power BI connector guide official documentation,0.914,high,high
+Power BI connector guide,Power BI connector guide detailed guide,0.9778,high,high
+Power BI connector guide,Power BI connector guide docs and tutorials,0.9181,high,high
+Power BI connector guide,step-by-step guide for Power BI connector guide,0.9145,high,medium
+Power BI connector guide,Power BI connector guide for beginners,0.9506,high,medium
+Power BI connector guide,Power BI connector guide reference and best practices,0.93,high,medium
+Power BI connector guide,how to get started with Power BI connector guide,0.9193,high,medium
+Power BI connector guide,Power BI connector guide overview and usage examples,0.9268,high,medium
+Power BI connector guide,when should developers rely on Power BI connector guide in real projects,0.7079,medium,low
+Power BI connector guide,deep dive explaining how Power BI connector guide works end-to-end,0.8414,medium,low
+Power BI connector guide,"use cases, limitations and integration patterns for Power BI connector guide",0.8207,medium,low
+Power BI connector guide,comparison of Power BI connector guide with similar cloud services,0.7529,medium,low
+Power BI connector guide,best resources to master Power BI connector guide for production workloads,0.7851,medium,low
+Visual Studio Code extensions list,Visual Studio Code extensions list,1.0,high,high
+Visual Studio Code extensions list,Visual Studio Code extensions list official documentation,0.9207,high,high
+Visual Studio Code extensions list,Visual Studio Code extensions list detailed guide,0.9414,high,high
+Visual Studio Code extensions list,Visual Studio Code extensions list docs and tutorials,0.8738,medium,high
+Visual Studio Code extensions list,step-by-step guide for Visual Studio Code extensions list,0.8954,medium,medium
+Visual Studio Code extensions list,Visual Studio Code extensions list for beginners,0.921,high,medium
+Visual Studio Code extensions list,Visual Studio Code extensions list reference and best practices,0.8391,medium,medium
+Visual Studio Code extensions list,how to get started with Visual Studio Code extensions list,0.9002,high,medium
+Visual Studio Code extensions list,Visual Studio Code extensions list overview and usage examples,0.9182,high,medium
+Visual Studio Code extensions list,when should developers rely on Visual Studio Code extensions list in real projects,0.742,medium,low
+Visual Studio Code extensions list,deep dive explaining how Visual Studio Code extensions list works end-to-end,0.836,medium,low
+Visual Studio Code extensions list,"use cases, limitations and integration patterns for Visual Studio Code extensions list",0.8457,medium,low
+Visual Studio Code extensions list,comparison of Visual Studio Code extensions list with similar cloud services,0.768,medium,low
+Visual Studio Code extensions list,best resources to master Visual Studio Code extensions list for production workloads,0.7169,medium,low
+Azure Functions Python tutorial,Azure Functions Python tutorial,1.0,high,high
+Azure Functions Python tutorial,Azure Functions Python tutorial official documentation,0.9333,high,high
+Azure Functions Python tutorial,Azure Functions Python tutorial detailed guide,0.9807,high,high
+Azure Functions Python tutorial,Azure Functions Python tutorial docs and tutorials,0.9499,high,high
+Azure Functions Python tutorial,step-by-step guide for Azure Functions Python tutorial,0.967,high,medium
+Azure Functions Python tutorial,Azure Functions Python tutorial for beginners,0.9767,high,medium
+Azure Functions Python tutorial,Azure Functions Python tutorial reference and best practices,0.9246,high,medium
+Azure Functions Python tutorial,how to get started with Azure Functions Python tutorial,0.9706,high,medium
+Azure Functions Python tutorial,Azure Functions Python tutorial overview and usage examples,0.968,high,medium
+Azure Functions Python tutorial,when should developers rely on Azure Functions Python tutorial in real projects,0.7306,medium,low
+Azure Functions Python tutorial,deep dive explaining how Azure Functions Python tutorial works end-to-end,0.8797,medium,low
+Azure Functions Python tutorial,"use cases, limitations and integration patterns for Azure Functions Python tutorial",0.8732,medium,low
+Azure Functions Python tutorial,comparison of Azure Functions Python tutorial with similar cloud services,0.8329,medium,low
+Azure Functions Python tutorial,best resources to master Azure Functions Python tutorial for production workloads,0.8111,medium,low
+IBM Watson NLP API reference,IBM Watson NLP API reference,1.0,high,high
+IBM Watson NLP API reference,IBM Watson NLP API reference official documentation,0.9442,high,high
+IBM Watson NLP API reference,IBM Watson NLP API reference detailed guide,0.9575,high,high
+IBM Watson NLP API reference,IBM Watson NLP API reference docs and tutorials,0.9368,high,high
+IBM Watson NLP API reference,step-by-step guide for IBM Watson NLP API reference,0.9182,high,medium
+IBM Watson NLP API reference,IBM Watson NLP API reference for beginners,0.944,high,medium
+IBM Watson NLP API reference,IBM Watson NLP API reference reference and best practices,0.8825,medium,medium
+IBM Watson NLP API reference,how to get started with IBM Watson NLP API reference,0.9208,high,medium
+IBM Watson NLP API reference,IBM Watson NLP API reference overview and usage examples,0.9392,high,medium
+IBM Watson NLP API reference,when should developers rely on IBM Watson NLP API reference in real projects,0.7011,medium,low
+IBM Watson NLP API reference,deep dive explaining how IBM Watson NLP API reference works end-to-end,0.8148,medium,low
+IBM Watson NLP API reference,"use cases, limitations and integration patterns for IBM Watson NLP API reference",0.8636,medium,low
+IBM Watson NLP API reference,comparison of IBM Watson NLP API reference with similar cloud services,0.8156,medium,low
+IBM Watson NLP API reference,best resources to master IBM Watson NLP API reference for production workloads,0.7907,medium,low
+IBM Cloud CLI guide,IBM Cloud CLI guide,1.0,high,high
+IBM Cloud CLI guide,IBM Cloud CLI guide official documentation,0.9333,high,high
+IBM Cloud CLI guide,IBM Cloud CLI guide detailed guide,0.9728,high,high
+IBM Cloud CLI guide,IBM Cloud CLI guide docs and tutorials,0.9463,high,high
+IBM Cloud CLI guide,step-by-step guide for IBM Cloud CLI guide,0.9468,high,medium
+IBM Cloud CLI guide,IBM Cloud CLI guide for beginners,0.9534,high,medium
+IBM Cloud CLI guide,IBM Cloud CLI guide reference and best practices,0.9137,high,medium
+IBM Cloud CLI guide,how to get started with IBM Cloud CLI guide,0.9549,high,medium
+IBM Cloud CLI guide,IBM Cloud CLI guide overview and usage examples,0.9516,high,medium
+IBM Cloud CLI guide,when should developers rely on IBM Cloud CLI guide in real projects,0.733,medium,low
+IBM Cloud CLI guide,deep dive explaining how IBM Cloud CLI guide works end-to-end,0.8374,medium,low
+IBM Cloud CLI guide,"use cases, limitations and integration patterns for IBM Cloud CLI guide",0.833,medium,low
+IBM Cloud CLI guide,comparison of IBM Cloud CLI guide with similar cloud services,0.8625,medium,low
+IBM Cloud CLI guide,best resources to master IBM Cloud CLI guide for production workloads,0.8143,medium,low
+SPSS model training example,SPSS model training example,1.0,high,high
+SPSS model training example,SPSS model training example official documentation,0.8536,medium,high
+SPSS model training example,SPSS model training example detailed guide,0.9457,high,high
+SPSS model training example,SPSS model training example docs and tutorials,0.8809,medium,high
+SPSS model training example,step-by-step guide for SPSS model training example,0.8915,medium,medium
+SPSS model training example,SPSS model training example for beginners,0.9416,high,medium
+SPSS model training example,SPSS model training example reference and best practices,0.8566,medium,medium
+SPSS model training example,how to get started with SPSS model training example,0.9015,high,medium
+SPSS model training example,SPSS model training example overview and usage examples,0.9205,high,medium
+SPSS model training example,when should developers rely on SPSS model training example in real projects,0.6345,low,low
+SPSS model training example,deep dive explaining how SPSS model training example works end-to-end,0.7665,medium,low
+SPSS model training example,"use cases, limitations and integration patterns for SPSS model training example",0.809,medium,low
+SPSS model training example,comparison of SPSS model training example with similar cloud services,0.5957,low,low
+SPSS model training example,best resources to master SPSS model training example for production workloads,0.65,low,low
+IBM Cloud pricing calculator,IBM Cloud pricing calculator,1.0,high,high
+IBM Cloud pricing calculator,IBM Cloud pricing calculator official documentation,0.9252,high,high
+IBM Cloud pricing calculator,IBM Cloud pricing calculator detailed guide,0.9393,high,high
+IBM Cloud pricing calculator,IBM Cloud pricing calculator docs and tutorials,0.9124,high,high
+IBM Cloud pricing calculator,step-by-step guide for IBM Cloud pricing calculator,0.914,high,medium
+IBM Cloud pricing calculator,IBM Cloud pricing calculator for beginners,0.9473,high,medium
+IBM Cloud pricing calculator,IBM Cloud pricing calculator reference and best practices,0.8898,medium,medium
+IBM Cloud pricing calculator,how to get started with IBM Cloud pricing calculator,0.9019,high,medium
+IBM Cloud pricing calculator,IBM Cloud pricing calculator overview and usage examples,0.9455,high,medium
+IBM Cloud pricing calculator,when should developers rely on IBM Cloud pricing calculator in real projects,0.7391,medium,low
+IBM Cloud pricing calculator,deep dive explaining how IBM Cloud pricing calculator works end-to-end,0.802,medium,low
+IBM Cloud pricing calculator,"use cases, limitations and integration patterns for IBM Cloud pricing calculator",0.8722,medium,low
+IBM Cloud pricing calculator,comparison of IBM Cloud pricing calculator with similar cloud services,0.8916,medium,low
+IBM Cloud pricing calculator,best resources to master IBM Cloud pricing calculator for production workloads,0.7952,medium,low
+open-source NLP model repository,open-source NLP model repository,1.0,high,high
+open-source NLP model repository,open-source NLP model repository official documentation,0.9162,high,high
+open-source NLP model repository,open-source NLP model repository detailed guide,0.9418,high,high
+open-source NLP model repository,open-source NLP model repository docs and tutorials,0.9381,high,high
+open-source NLP model repository,step-by-step guide for open-source NLP model repository,0.8824,medium,medium
+open-source NLP model repository,open-source NLP model repository for beginners,0.9515,high,medium
+open-source NLP model repository,open-source NLP model repository reference and best practices,0.9071,high,medium
+open-source NLP model repository,how to get started with open-source NLP model repository,0.8561,medium,medium
+open-source NLP model repository,open-source NLP model repository overview and usage examples,0.957,high,medium
+open-source NLP model repository,when should developers rely on open-source NLP model repository in real projects,0.6893,low,low
+open-source NLP model repository,deep dive explaining how open-source NLP model repository works end-to-end,0.7993,medium,low
+open-source NLP model repository,"use cases, limitations and integration patterns for open-source NLP model repository",0.9068,high,low
+open-source NLP model repository,comparison of open-source NLP model repository with similar cloud services,0.8175,medium,low
+open-source NLP model repository,best resources to master open-source NLP model repository for production workloads,0.7916,medium,low
+data visualization in Python,data visualization in Python,1.0,high,high
+data visualization in Python,data visualization in Python official documentation,0.806,medium,high
+data visualization in Python,data visualization in Python detailed guide,0.8958,medium,high
+data visualization in Python,data visualization in Python docs and tutorials,0.8133,medium,high
+data visualization in Python,step-by-step guide for data visualization in Python,0.8939,medium,medium
+data visualization in Python,data visualization in Python for beginners,0.9291,high,medium
+data visualization in Python,data visualization in Python reference and best practices,0.8395,medium,medium
+data visualization in Python,how to get started with data visualization in Python,0.8884,medium,medium
+data visualization in Python,data visualization in Python overview and usage examples,0.9101,high,medium
+data visualization in Python,when should developers rely on data visualization in Python in real projects,0.6332,low,low
+data visualization in Python,deep dive explaining how data visualization in Python works end-to-end,0.7063,medium,low
+data visualization in Python,"use cases, limitations and integration patterns for data visualization in Python",0.8221,medium,low
+data visualization in Python,comparison of data visualization in Python with similar cloud services,0.6864,low,low
+data visualization in Python,best resources to master data visualization in Python for production workloads,0.6331,low,low
+Kaggle competition for regression models,Kaggle competition for regression models,1.0,high,high
+Kaggle competition for regression models,Kaggle competition for regression models official documentation,0.8611,medium,high
+Kaggle competition for regression models,Kaggle competition for regression models detailed guide,0.9429,high,high
+Kaggle competition for regression models,Kaggle competition for regression models docs and tutorials,0.8701,medium,high
+Kaggle competition for regression models,step-by-step guide for Kaggle competition for regression models,0.9215,high,medium
+Kaggle competition for regression models,Kaggle competition for regression models for beginners,0.9351,high,medium
+Kaggle competition for regression models,Kaggle competition for regression models reference and best practices,0.8903,medium,medium
+Kaggle competition for regression models,how to get started with Kaggle competition for regression models,0.8628,medium,medium
+Kaggle competition for regression models,Kaggle competition for regression models overview and usage examples,0.9557,high,medium
+Kaggle competition for regression models,when should developers rely on Kaggle competition for regression models in real projects,0.7891,medium,low
+Kaggle competition for regression models,deep dive explaining how Kaggle competition for regression models works end-to-end,0.8569,medium,low
+Kaggle competition for regression models,"use cases, limitations and integration patterns for Kaggle competition for regression models",0.9102,high,low
+Kaggle competition for regression models,comparison of Kaggle competition for regression models with similar cloud services,0.8173,medium,low
+Kaggle competition for regression models,best resources to master Kaggle competition for regression models for production workloads,0.7539,medium,low
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison,1.0,high,high
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison official documentation,0.871,medium,high
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison detailed guide,0.9224,high,high
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison docs and tutorials,0.8575,medium,high
+PyTorch vs TensorFlow comparison,step-by-step guide for PyTorch vs TensorFlow comparison,0.8324,medium,medium
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison for beginners,0.9191,high,medium
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison reference and best practices,0.8758,medium,medium
+PyTorch vs TensorFlow comparison,how to get started with PyTorch vs TensorFlow comparison,0.8493,medium,medium
+PyTorch vs TensorFlow comparison,PyTorch vs TensorFlow comparison overview and usage examples,0.9069,high,medium
+PyTorch vs TensorFlow comparison,when should developers rely on PyTorch vs TensorFlow comparison in real projects,0.8157,medium,low
+PyTorch vs TensorFlow comparison,deep dive explaining how PyTorch vs TensorFlow comparison works end-to-end,0.792,medium,low
+PyTorch vs TensorFlow comparison,"use cases, limitations and integration patterns for PyTorch vs TensorFlow comparison",0.8619,medium,low
+PyTorch vs TensorFlow comparison,comparison of PyTorch vs TensorFlow comparison with similar cloud services,0.8174,medium,low
+PyTorch vs TensorFlow comparison,best resources to master PyTorch vs TensorFlow comparison for production workloads,0.7623,medium,low

@@ -14,7 +14,7 @@ search:
 
 paraphrase:
   per_query: 2
-  cosine_min: 0.85
+  cosine_min: 0.5
 
 embedding:
   model: "sentence-transformers/all-MiniLM-L6-v2"

@@ -1,0 +1,30 @@
+# domain_map.yaml
+vendors:
+  google:
+    - google.com
+    - cloud.google.com
+    - developers.google.com
+    - firebase.google.com
+    - bigquery.cloud.google.com
+    - youtube.com
+    - android.com
+  microsoft:
+    - microsoft.com
+    - learn.microsoft.com
+    - azure.microsoft.com
+    - docs.microsoft.com
+    - visualstudio.com
+    - powerbi.microsoft.com
+  ibm:
+    - ibm.com
+    - cloud.ibm.com
+    - watson.ibm.com
+  neutral:
+    - github.com
+    - huggingface.co
+    - kaggle.com
+    - stackoverflow.com
+    - stackexchange.com
+    - wikipedia.org
+    - medium.com
+    - towardsdatascience.com

@@ -42,7 +42,6 @@ def serper_search(query: str, api_key: str) -> Dict[str, Any]:
 
 
 def main():
-    # ---- Load key + config
     load_dotenv()  # reads .env in project root
     api_key = os.getenv("SERPER_API_KEY")
     assert api_key, "❌ Missing SERPER_API_KEY in .env"

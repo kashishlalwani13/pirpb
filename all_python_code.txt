@@ -1,0 +1,960 @@
+===== src/pirpb/metrics.py =====
+# src/pirpb/metrics.py
+from __future__ import annotations
+import math
+import sys
+from pathlib import Path
+from typing import List, Dict
+import pandas as pd
+import matplotlib.pyplot as plt
+import yaml
+
+# ----------------- helpers -----------------
+
+
+def load_cfg(path: Path) -> dict:
+    if not path.exists():
+        print(f"Config file not found: {path}", file=sys.stderr)
+        sys.exit(2)
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
+
+
+def norm(s: str) -> str:
+    """case/whitespace-insensitive canonical form"""
+    return " ".join(str(s).strip().split()).lower() if isinstance(s, str) else ""
+
+
+def rbo(list1: List[str], list2: List[str], p: float = 0.9) -> float:
+    """Extrapolated Rank-Biased Overlap (Webber et al., 2010). Returns [0,1]."""
+    if not list1 and not list2:
+        return 1.0
+    if not list1 or not list2:
+        return 0.0
+    if not (0 < p < 1):
+        raise ValueError("p must be in (0,1)")
+
+    # de-dupe preserving order
+    A, B = [], []
+    seenA, seenB = set(), set()
+    for x in list1:
+        if x not in seenA:
+            seenA.add(x)
+            A.append(x)
+    for x in list2:
+        if x not in seenB:
+            seenB.add(x)
+            B.append(x)
+
+    k = max(len(A), len(B))
+    seenA, seenB = set(), set()
+    overlap = 0
+    summ = 0.0
+    A_d = 0.0
+
+    for d in range(1, k + 1):
+        if d <= len(A):
+            a = A[d-1]
+            seenA.add(a)
+            if a in seenB:
+                overlap += 1
+        if d <= len(B):
+            b = B[d-1]
+            if b not in seenB:
+                seenB.add(b)
+                if b in seenA:
+                    overlap += 1
+        A_d = overlap / d
+        summ += A_d * (p ** d)
+
+    rbo_ext = ((1 - p) / p) * summ + A_d * (p ** k)
+    return max(0.0, min(1.0, float(rbo_ext)))
+
+
+def pir_from_rbo(r: float) -> float:
+    return 1.0 - float(r) if r is not None and not math.isnan(r) else math.nan
+
+# ----------------- main compute -----------------
+
+
+def compute_pir():
+    cfg = load_cfg(Path("configs/config.yaml"))
+    serp_dir = Path(cfg.get("io", {}).get("serp_dir", "serp"))
+    results_dir = Path(cfg.get("io", {}).get("results_dir", "results"))
+    logs_dir = Path(cfg.get("io", {}).get("logs_dir", "logs"))
+    top_k = int(cfg.get("search", {}).get("top_k", 10))
+    p = float(cfg.get("metrics", {}).get("rbo_p", 0.9))
+
+    serp_csv = serp_dir / "serp_google.csv"
+    paraphrases_csv = Path("data/paraphrases/paraphrases.csv")
+    out_csv = results_dir / "pir_google.csv"
+    hist_path = results_dir / "pir_hist_google.png"
+    log_path = logs_dir / "stage_d_metrics.log"
+
+    # load SERPs and paraphrases
+    serp = pd.read_csv(serp_csv)
+    para = pd.read_csv(paraphrases_csv)
+
+    serp.columns = [c.lower() for c in serp.columns]
+    para.columns = [c.lower() for c in para.columns]
+
+    required_serp = {"query", "rank", "url"}
+    if not required_serp.issubset(set(serp.columns)):
+        raise ValueError(
+            f"serp_google.csv must have columns {required_serp}, found {serp.columns.tolist()}")
+
+    serp["rank"] = pd.to_numeric(serp["rank"], errors="coerce")
+    serp = serp.dropna(subset=["rank", "url", "query"]).copy()
+    serp["rank"] = serp["rank"].astype(int)
+
+    # canonical query text to improve matching
+    serp["query_norm"] = serp["query"].map(norm)
+    para["query_norm"] = para["query"].map(norm)
+    para["paraphrase_norm"] = para["paraphrase"].map(norm)
+
+    # build fast lookup: {query_norm -> topK url list}
+    urls_by_q: Dict[str, List[str]] = {}
+    for qn, grp in serp.sort_values("rank").groupby("query_norm"):
+        urls_by_q[qn] = grp.head(top_k)["url"].dropna().astype(str).tolist()
+
+    rows = []
+    missing_seed, missing_para, short_lists = 0, 0, 0
+
+    for _, r in para.iterrows():
+        q_seed_n = r["query_norm"]
+        q_para_n = r["paraphrase_norm"]
+        urls_seed = urls_by_q.get(q_seed_n, [])
+        urls_para = urls_by_q.get(q_para_n, [])
+        if not urls_seed:
+            missing_seed += 1
+            continue
+        if not urls_para:
+            missing_para += 1
+            continue
+        # for pilot, allow even small lists (>=1), tighten later if needed
+        if len(urls_seed) < 1 or len(urls_para) < 1:
+            short_lists += 1
+            continue
+        score = rbo(urls_seed, urls_para, p)
+        rows.append({
+            "seed_query": r["query"],
+            "paraphrase": r["paraphrase"],
+            "k_used": min(top_k, max(len(urls_seed), len(urls_para))),
+            "p": p,
+            "rbo": score,
+            "pir": pir_from_rbo(score),
+        })
+
+    # write outputs
+    results_dir.mkdir(parents=True, exist_ok=True)
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    df = pd.DataFrame(rows)
+    df.to_csv(out_csv, index=False)
+
+    mean_pir = float(df["pir"].mean()) if not df.empty else float("nan")
+
+    with open(log_path, "a", encoding="utf-8") as f:
+        f.write("=== Stage D (metrics) ===\n")
+        f.write(f"pairs_scored={len(df)}\n")
+        f.write(f"missing_seed={missing_seed}\n")
+        f.write(f"missing_para={missing_para}\n")
+        f.write(f"short_lists={short_lists}\n")
+        f.write(f"mean_pir={mean_pir}\n\n")
+
+    if not df.empty:
+        plt.figure()
+        df["pir"].plot(kind="hist", bins=20, edgecolor="black")
+        plt.xlabel("PIR (1 - RBO@K)")
+        plt.ylabel("Count")
+        plt.title("Distribution of PIR (Google CSE)")
+        plt.tight_layout()
+        plt.savefig(hist_path, dpi=160)
+        plt.close()
+
+    print(f"[Stage D] Pairs scored: {len(df)}")
+    print(
+        f"[Stage D] missing_seed={missing_seed} | missing_para={missing_para} | short_lists={short_lists}")
+    print(f"[Stage D] Mean PIR = {mean_pir:.4f}" if not math.isnan(
+        mean_pir) else "[Stage D] Mean PIR = NaN")
+
+
+if __name__ == "__main__":
+    compute_pir()
+===== src/pirpb/config.py =====
+# ==========================================================
+# config.py  |  PIR/PB Project Configuration Loader
+# ==========================================================
+# Loads all experiment settings from configs/config.yaml
+# Keeps the pipeline reproducible and parameter-driven.
+# ----------------------------------------------------------
+
+from pathlib import Path
+from pydantic import BaseModel
+import yaml
+
+
+class Settings(BaseModel):
+    data_dir: Path
+    serp_dir: Path
+    results_dir: Path
+    logs_dir: Path
+    engine: str
+    top_k: int
+    cosine_min: float
+    embed_model: str
+    rbo_p: float
+
+
+def load_settings(cfg_path: str = "configs/config.yaml") -> "Settings":
+    """Read YAML configuration and return a typed Settings object."""
+    with open(cfg_path, "r") as f:
+        cfg = yaml.safe_load(f)
+    return Settings(
+        data_dir=Path(cfg["io"]["data_dir"]),
+        serp_dir=Path(cfg["io"]["serp_dir"]),
+        results_dir=Path(cfg["io"]["results_dir"]),
+        logs_dir=Path(cfg["io"]["logs_dir"]),
+        engine=cfg["search"]["engine"],
+        top_k=cfg["search"]["top_k"],
+        cosine_min=cfg["paraphrase"]["cosine_min"],
+        embed_model=cfg["embedding"]["model"],
+        rbo_p=cfg["metrics"]["rbo_p"],
+    )
+
+
+if __name__ == "__main__":
+    s = load_settings()
+    print("✅ Config loaded:", s)
+===== src/pirpb/__init__.py =====
+===== src/pirpb/search_google_cse.py =====
+# ==========================================================
+# search_google_cse.py | Stage C – Google CSE Retrieval
+# Reads data/paraphrases/paraphrases.csv, calls Google Custom Search,
+# caches raw JSON in serp/cache_google/, writes serp/serp_google.csv.
+# ==========================================================
+import os, time, json
+from pathlib import Path
+from typing import List, Dict, Any
+import requests
+import pandas as pd
+from dotenv import load_dotenv
+from pirpb.config import load_settings
+
+def cse_search(query: str, api_key: str, cx: str, num: int = 10) -> Dict[str, Any]:
+    url = "https://www.googleapis.com/customsearch/v1"
+    params = {"key": api_key, "cx": cx, "q": query, "num": num}
+    r = requests.get(url, params=params, timeout=30)
+    r.raise_for_status()
+    return r.json()
+
+def main():
+    # Load keys from project root
+    env_path = Path(__file__).resolve().parents[2] / ".env"
+    load_dotenv(dotenv_path=env_path)
+    api_key = os.getenv("GOOGLE_API_KEY")
+    cx = os.getenv("GOOGLE_CX")
+    assert api_key and cx, "❌ Missing GOOGLE_API_KEY or GOOGLE_CX in .env"
+
+    settings = load_settings()
+    in_csv = Path(settings.data_dir) / "paraphrases" / "paraphrases.csv"
+    assert in_csv.exists(), f"Missing {in_csv}. Run Stage B paraphraser first."
+
+    serp_dir = Path(settings.serp_dir); serp_dir.mkdir(parents=True, exist_ok=True)
+    cache_dir = serp_dir / "cache_google"; cache_dir.mkdir(parents=True, exist_ok=True)
+
+    df = pd.read_csv(in_csv)
+    print(f"🔍 Loaded {len(df)} paraphrased queries")
+
+    rows: List[Dict[str, Any]] = []
+
+    for i, row in df.iterrows():
+        q = str(row["paraphrase"]).strip()
+        cache_path = cache_dir / f"query_{i}.json"
+
+        if cache_path.exists():
+            data = json.loads(cache_path.read_text())
+        else:
+            try:
+                data = cse_search(q, api_key, cx, num=10)
+            except requests.HTTPError as e:
+                data = {"error": str(e), "status_code": getattr(e.response, "status_code", None)}
+            cache_path.write_text(json.dumps(data, indent=2))
+            time.sleep(1)  # polite throttle
+
+        if "error" in data:
+            rows.append({"qid": i, "query": q, "rank": None, "title": None, "url": None,
+                         "snippet": f"ERROR: {data.get('error')}"})
+        else:
+            for j, item in enumerate(data.get("items", []), start=1):
+                rows.append({
+                    "qid": i,
+                    "query": q,
+                    "rank": j,
+                    "title": item.get("title", ""),
+                    "url": item.get("link", ""),
+                    "snippet": item.get("snippet", ""),
+                })
+
+    out_csv = serp_dir / "serp_google.csv"
+    pd.DataFrame(rows, columns=["qid","query","rank","title","url","snippet"]).to_csv(out_csv, index=False)
+    print(f"✅ Saved Google CSE results to {out_csv} | {len(rows)} rows total")
+
+if __name__ == "__main__":
+    main()
+===== src/pirpb/search_seeds_only.py =====
+from __future__ import annotations
+import os, sys, json, time
+from pathlib import Path
+from typing import Dict, Any, List
+
+import pandas as pd
+import requests
+import yaml
+from dotenv import load_dotenv
+
+API_URL = "https://www.googleapis.com/customsearch/v1"
+
+def _safe_mkdir(p: Path):
+    p.mkdir(parents=True, exist_ok=True)
+
+def _flatten_items(items: List[Dict[str, Any]], query: str) -> List[Dict[str, Any]]:
+    rows = []
+    for i, it in enumerate(items or [], start=1):
+        rows.append({
+            "qid": f"seed::{hash(query) & 0xfffffff}",
+            "query": query,
+            "rank": i,
+            "title": it.get("title", ""),
+            "url": it.get("link", ""),
+            "snippet": it.get("snippet", "")
+        })
+    return rows
+
+def _load_serp_dir_from_yaml(cfg_path: Path) -> Path:
+    if not cfg_path.exists():
+        print(f"Config file not found: {cfg_path}", file=sys.stderr)
+        sys.exit(2)
+    with cfg_path.open("r", encoding="utf-8") as f:
+        cfg = yaml.safe_load(f) or {}
+    # Expect structure: io: { serp_dir: "serp" }
+    io = cfg.get("io", {})
+    serp_dir = io.get("serp_dir", "serp")
+    return Path(serp_dir)
+
+def main() -> int:
+    load_dotenv()
+
+    api_key, cx = os.getenv("GOOGLE_API_KEY"), os.getenv("GOOGLE_CX")
+    if not api_key or not cx:
+        print("Missing GOOGLE_API_KEY or GOOGLE_CX in .env", file=sys.stderr)
+        return 2
+
+    serp_dir = _load_serp_dir_from_yaml(Path("configs/config.yaml"))
+    cache_dir = serp_dir / "cache_google"
+    out_csv = serp_dir / "serp_google.csv"
+    seeds_csv = Path("data/queries/base_queries.csv")
+
+    _safe_mkdir(serp_dir)
+    _safe_mkdir(cache_dir)
+
+    if not seeds_csv.exists():
+        print(f"Seeds file not found: {seeds_csv}", file=sys.stderr)
+        return 3
+
+    seeds = pd.read_csv(seeds_csv)
+    seeds.columns = [c.lower() for c in seeds.columns]
+    if "query" not in seeds.columns:
+        print("base_queries.csv must have a 'query' column.", file=sys.stderr)
+        return 3
+
+    if out_csv.exists():
+        existing = pd.read_csv(out_csv)
+        existing.columns = [c.lower() for c in existing.columns]
+    else:
+        existing = pd.DataFrame(columns=["qid","query","rank","title","url","snippet"])
+
+    all_new_rows: List[Dict[str, Any]] = []
+    for q in seeds["query"].astype(str).tolist():
+        cache_path = cache_dir / f"google_seed_{abs(hash(q)) & 0xfffffff}.json"
+        data = None
+
+        if cache_path.exists():
+            try:
+                data = json.loads(cache_path.read_text(encoding="utf-8"))
+            except Exception:
+                data = None
+
+        if data is None:
+            params = {"key": api_key, "cx": cx, "q": q, "num": 10}
+            r = requests.get(API_URL, params=params, timeout=30)
+            if r.status_code != 200:
+                print(f"[WARN] Google CSE {r.status_code} for '{q}': {r.text[:200]}", file=sys.stderr)
+                time.sleep(1.0)
+                continue
+            data = r.json()
+            cache_path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+            time.sleep(0.3)
+
+        rows = _flatten_items(data.get("items", []), q)
+        all_new_rows.extend(rows)
+
+    if not all_new_rows:
+        print("[INFO] No new seed results fetched.")
+        return 0
+
+    new_df = pd.DataFrame(all_new_rows)
+    merged = pd.concat([existing, new_df], ignore_index=True)
+    merged.drop_duplicates(subset=["query","url","rank"], inplace=True)
+    merged.sort_values(by=["query","rank"], inplace=True)
+    merged.to_csv(out_csv, index=False)
+    print(f"[OK] Updated {out_csv} with seed SERPs.")
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+===== src/pirpb/item_pir.py =====
+import csv
+import sys
+from pathlib import Path
+from typing import Dict, Tuple
+
+import pandas as pd
+from urllib.parse import urlparse
+
+
+def load_config_top_k(project_root: Path) -> int:
+    """
+    Load top_k from configs/config.yaml if available.
+    Fallback to 20 if not found or on any error.
+
+    We check:
+    - item_pir.top_k
+    - metrics.top_k
+    - else default = 20
+    """
+    config_path = project_root / "configs" / "config.yaml"
+    default_k = 20
+    try:
+        import yaml  # type: ignore
+
+        if config_path.exists():
+            with open(config_path, "r") as f:
+                cfg = yaml.safe_load(f) or {}
+            if not isinstance(cfg, dict):
+                return default_k
+
+            item_pir_cfg = cfg.get("item_pir", {})
+            metrics_cfg = cfg.get("metrics", {})
+
+            if isinstance(item_pir_cfg, dict) and "top_k" in item_pir_cfg:
+                return int(item_pir_cfg["top_k"])
+            if isinstance(metrics_cfg, dict) and "top_k" in metrics_cfg:
+                return int(metrics_cfg["top_k"])
+    except Exception:
+        # If anything goes wrong, we stay silent and use the default.
+        pass
+    return default_k
+
+
+def extract_domain(url: str) -> str:
+    """
+    Extract domain from URL, strip 'www.'.
+    Returns lowercase domain.
+    """
+    try:
+        parsed = urlparse(url)
+        host = parsed.netloc.lower()
+        if host.startswith("www."):
+            host = host[4:]
+        return host
+    except Exception:
+        return ""
+
+
+def find_rank_for_target(
+    serp_df: pd.DataFrame,
+    query_text: str,
+    focal_type: str,
+    focal_value: str,
+    k: int,
+) -> int:
+    """
+    For a given query_text and focal definition, find the rank of the focal item.
+
+    - focal_type == 'url':
+        focal_value is treated as a substring to search within the result URL.
+    - focal_type == 'domain':
+        focal_value is matched against the URL's domain (e.g. 'github.com').
+
+    Returns:
+        rank (1..k) if found within top-k results,
+        k+1 if not found or if no SERP rows for that query.
+    """
+    q_serp = serp_df[serp_df["query"] == query_text].copy()
+    if q_serp.empty:
+        return k + 1
+
+    # Ensure rank is numeric, sort ascending
+    try:
+        q_serp["rank"] = pd.to_numeric(q_serp["rank"], errors="coerce")
+    except Exception:
+        pass
+
+    q_serp = q_serp.sort_values("rank", ascending=True)
+
+    focal_value_l = focal_value.strip().lower()
+
+    for _, row in q_serp.iterrows():
+        try:
+            rank = int(row["rank"])
+        except Exception:
+            continue
+
+        if rank < 1 or rank > k:
+            continue
+
+        url = str(row.get("url", "")).strip()
+        if not url:
+            continue
+
+        url_l = url.lower()
+
+        if focal_type == "url":
+            # Check if focal_value appears anywhere in the URL
+            if focal_value_l in url_l:
+                return rank
+
+        elif focal_type == "domain":
+            domain = extract_domain(url)
+            # Match same domain or subdomain of focal_value
+            if domain == focal_value_l or domain.endswith("." + focal_value_l):
+                return rank
+
+    # Not found in top-k
+    return k + 1
+
+
+def compute_item_pir(
+    base_queries_path: Path,
+    paraphrases_path: Path,
+    focal_items_path: Path,
+    serp_path: Path,
+    results_dir: Path,
+    k: int,
+):
+    """
+    Main item-level PIR logic.
+
+    For each seed query that has a focal mapping:
+      1. Get seed_rank of focal item in SERP(seed_query).
+      2. For each paraphrase of that seed:
+            - Get para_rank in SERP(paraphrase_query).
+            - impact_score = max(0, (para_rank - seed_rank) / k),
+              clipped to [0,1].
+    Save:
+      - results/item_pir_google.csv : detailed rows
+      - results/item_pir_summary.csv: mean impact per category
+    """
+    # --- Load inputs ---
+    if not base_queries_path.exists():
+        raise FileNotFoundError(
+            f"Missing base_queries.csv at {base_queries_path}")
+    if not paraphrases_path.exists():
+        raise FileNotFoundError(
+            f"Missing paraphrases.csv at {paraphrases_path}")
+    if not focal_items_path.exists():
+        raise FileNotFoundError(
+            f"Missing focal_items.csv at {focal_items_path}")
+    if not serp_path.exists():
+        raise FileNotFoundError(f"Missing serp_google.csv at {serp_path}")
+
+    seeds_df = pd.read_csv(base_queries_path)
+    paras_df = pd.read_csv(paraphrases_path)
+    focal_df = pd.read_csv(focal_items_path)
+    serp_df = pd.read_csv(serp_path)
+
+    # Normalize column names (strip spaces)
+    for df in (seeds_df, paras_df, focal_df, serp_df):
+        df.columns = [c.strip() for c in df.columns]
+
+    # --- Validate focal_items.csv columns ---
+    required_focal_cols = {"query", "category", "focal_type", "focal_value"}
+    if not required_focal_cols.issubset(focal_df.columns):
+        missing = required_focal_cols.difference(focal_df.columns)
+        raise ValueError(
+            f"focal_items.csv is missing required columns: {', '.join(sorted(missing))}"
+        )
+
+    # Build lookup: (query, category_lower) -> (focal_type, focal_value)
+    focal_lookup: Dict[Tuple[str, str], Tuple[str, str]] = {}
+    for _, row in focal_df.iterrows():
+        q = str(row["query"]).strip()
+        cat = str(row["category"]).strip().lower()
+        f_type = str(row["focal_type"]).strip().lower()
+        f_val = str(row["focal_value"]).strip()
+
+        if not q or not cat or not f_type or not f_val:
+            continue
+        if f_type not in {"url", "domain"}:
+            continue
+
+        focal_lookup[(q, cat)] = (f_type, f_val)
+
+    if not focal_lookup:
+        raise ValueError(
+            "No valid focal mappings found in focal_items.csv. "
+            "Please ensure at least one row has query, category, focal_type, focal_value."
+        )
+
+    # --- Validate paraphrases.csv ---
+    required_paras_cols = {"query", "paraphrase"}
+    if not required_paras_cols.issubset(paras_df.columns):
+        raise ValueError(
+            "paraphrases.csv must contain at least 'query' and 'paraphrase' columns."
+        )
+
+    # Ensure results directory exists
+    results_dir.mkdir(parents=True, exist_ok=True)
+
+    item_rows = []
+
+    # --- Main loop: per focal seed ---
+    for (seed_query, seed_cat), (f_type, f_val) in focal_lookup.items():
+        seed_cat_l = seed_cat.lower()
+
+        # All paraphrases for this seed
+        these_paras = paras_df[paras_df["query"] == seed_query]
+
+        if these_paras.empty:
+            print(
+                f"[WARN] No paraphrases found for seed query: {seed_query!r}. Skipping.",
+                file=sys.stderr,
+            )
+            continue
+
+        # Rank of focal item for the seed query
+        seed_rank = find_rank_for_target(
+            serp_df=serp_df,
+            query_text=seed_query,
+            focal_type=f_type,
+            focal_value=f_val,
+            k=k,
+        )
+
+        for _, prow in these_paras.iterrows():
+            para_query = str(prow["paraphrase"]).strip()
+            if not para_query:
+                continue
+
+            para_rank = find_rank_for_target(
+                serp_df=serp_df,
+                query_text=para_query,
+                focal_type=f_type,
+                focal_value=f_val,
+                k=k,
+            )
+
+            # Item-level impact: only penalize demotions
+            raw_delta = (para_rank - seed_rank) / float(k)
+            if raw_delta < 0:
+                impact = 0.0
+            elif raw_delta > 1:
+                impact = 1.0
+            else:
+                impact = float(raw_delta)
+
+            item_rows.append(
+                {
+                    "seed_query": seed_query,
+                    "paraphrase_query": para_query,
+                    "category": seed_cat_l,
+                    "focal_type": f_type,
+                    "focal_value": f_val,
+                    "seed_rank": int(seed_rank),
+                    "para_rank": int(para_rank),
+                    "impact_score": round(impact, 4),
+                }
+            )
+
+    if not item_rows:
+        raise ValueError(
+            "No item-level PIR rows generated. "
+            "Check that focal_items.csv matches base_queries.csv, "
+            "and that paraphrases.csv + serp_google.csv contain those queries."
+        )
+
+    item_df = pd.DataFrame(item_rows)
+
+    # --- Summary: mean impact per category ---
+    summary_df = (
+        item_df.groupby("category", as_index=False)["impact_score"]
+        .mean()
+        .rename(columns={"impact_score": "mean_impact_score"})
+    )
+
+    # --- Save outputs ---
+    item_output = results_dir / "item_pir_google.csv"
+    summary_output = results_dir / "item_pir_summary.csv"
+
+    item_df.to_csv(item_output, index=False, quoting=csv.QUOTE_MINIMAL)
+    summary_df.to_csv(summary_output, index=False, quoting=csv.QUOTE_MINIMAL)
+
+    print(f"[OK] Wrote item-level PIR details to: {item_output}")
+    print(f"[OK] Wrote item-level PIR summary to: {summary_output}")
+
+    return item_df, summary_df
+
+
+def main() -> None:
+    """
+    Entry point so you can run from project root:
+
+        export PYTHONPATH=src
+        python -m pirpb.item_pir
+    """
+    # src/pirpb/item_pir.py -> parents[2] is the repo root
+    project_root = Path(__file__).resolve().parents[2]
+
+    base_queries_path = project_root / "data" / "queries" / "base_queries.csv"
+    paraphrases_path = project_root / "data" / "paraphrases" / "paraphrases.csv"
+    focal_items_path = project_root / "data" / "queries" / "focal_items.csv"
+    serp_path = project_root / "serp" / "serp_google.csv"
+    results_dir = project_root / "results"
+
+    k = load_config_top_k(project_root)
+
+    print(f"[INFO] Using top_k = {k} for item-level PIR.")
+    print(f"[INFO] Project root: {project_root}")
+
+    compute_item_pir(
+        base_queries_path=base_queries_path,
+        paraphrases_path=paraphrases_path,
+        focal_items_path=focal_items_path,
+        serp_path=serp_path,
+        results_dir=results_dir,
+        k=k,
+    )
+
+
+if __name__ == "__main__":
+    main()
+===== src/pirpb/search_serper.py =====
+
+# ==========================================================
+# search_serper.py | Stage C – Search Retrieval (Serper.dev)
+# ----------------------------------------------------------
+# Reads paraphrases.csv, calls Serper (Google wrapper),
+# caches raw JSON, and writes a flat serp_serper.csv.
+# For reproducibility we cache every response to serp/cache/.
+# ==========================================================
+
+import os
+import time
+import json
+from pathlib import Path
+from typing import List, Dict, Any
+
+
+import requests
+import pandas as pd
+from dotenv import load_dotenv
+
+# Make sure we can import our config regardless of CWD
+from pathlib import Path as _P
+import sys as _sys
+_SRC = _P(__file__).resolve().parents[1]  # .../src
+if str(_SRC) not in _sys.path:
+    _sys.path.insert(0, str(_SRC))
+
+from pirpb.config import load_settings  # noqa: E402
+
+
+def serper_search(query: str, api_key: str) -> Dict[str, Any]:
+    """Call Serper.dev Google Search wrapper API and return JSON."""
+    headers = {"X-API-KEY": api_key, "Content-Type": "application/json"}
+    resp = requests.post(
+        "https://google.serper.dev/search",
+        headers=headers,
+        json={"q": query},
+        timeout=30,
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+
+def main():
+    load_dotenv()  # reads .env in project root
+    api_key = os.getenv("SERPER_API_KEY")
+    assert api_key, "❌ Missing SERPER_API_KEY in .env"
+
+    settings = load_settings()
+    in_csv = Path(settings.data_dir) / "paraphrases" / "paraphrases.csv"
+    assert in_csv.exists(), f"Missing {in_csv}. Run Stage B paraphraser first."
+
+    serp_dir = Path(settings.serp_dir)
+    cache_dir = serp_dir / "cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    df = pd.read_csv(in_csv)
+    print(f"🔍 Loaded {len(df)} paraphrased queries")
+
+    rows: List[Dict[str, Any]] = []
+
+    for i, row in df.iterrows():
+        q = str(row["paraphrase"]).strip()
+        cache_path = cache_dir / f"query_{i}.json"
+
+        # Use cache if available; otherwise call API and cache
+        if cache_path.exists():
+            data = json.loads(cache_path.read_text())
+        else:
+            try:
+                data = serper_search(q, api_key)
+            except requests.HTTPError as e:
+                data = {"error": str(e), "status_code": getattr(
+                    e.response, "status_code", None)}
+            cache_path.write_text(json.dumps(data, indent=2))
+            time.sleep(1)  # polite throttle for free tier
+
+        # Flatten results
+        if "error" in data:
+            rows.append({
+                "qid": i, "query": q, "rank": None,
+                "title": None, "url": None,
+                "snippet": f"ERROR: {data.get('error')}"
+            })
+        else:
+            for j, item in enumerate(data.get("organic", []), start=1):
+                rows.append({
+                    "qid": i,
+                    "query": q,
+                    "rank": j,
+                    "title": item.get("title", ""),
+                    "url": item.get("link", ""),
+                    "snippet": item.get("snippet", "")
+                })
+
+    out_csv = serp_dir / "serp_serper.csv"
+    pd.DataFrame(rows, columns=[
+                 "qid", "query", "rank", "title", "url", "snippet"]).to_csv(out_csv, index=False)
+    print(f"Saved SERPER results to {out_csv} | {len(rows)} rows total")
+
+
+if __name__ == "__main__":
+    main()
+===== src/pirpb/paraphraser.py =====
+# ==========================================================
+# paraphraser.py  |  Stage B - Entity-safe paraphrasing
+# ==========================================================
+# Generates 1–2 paraphrases per base query without training.
+# Preserves vendor/product entities using a simple lock mechanism.
+# Filters outputs by cosine similarity (>= threshold from config).
+# Output CSV: data/paraphrases/paraphrases.csv
+# ----------------------------------------------------------
+# AI-ASSIST: Template strategy inspired by standard paraphrase patterns.
+
+from pathlib import Path
+import re
+import pandas as pd
+from typing import List, Tuple
+from sentence_transformers import SentenceTransformer, util
+from .config import load_settings
+
+# ---------- Helpers ----------
+
+
+def _protect_entities(text: str, entities: List[str]) -> tuple[str, list[tuple[str, str]]]:
+    """
+    Replace each entity in `entities` with a placeholder ENT_i to prevent
+    templates from altering them. Returns (protected_text, mapping).
+    """
+    protected_map: list[tuple[str, str]] = []
+    tmp = text
+    for i, ent in enumerate(entities):
+        ent = ent.strip()
+        if not ent:
+            continue
+        placeholder = f"ENT_{i}"
+        # case-insensitive exact replacement
+        tmp = re.sub(re.escape(ent), placeholder, tmp, flags=re.IGNORECASE)
+        protected_map.append((placeholder, ent))
+    return tmp, protected_map
+
+
+def _restore_entities(text: str, protected: list[tuple[str, str]]) -> str:
+    out = text
+    for placeholder, ent in protected:
+        out = out.replace(placeholder, ent)
+    return out
+
+
+def _templates(q: str) -> list[str]:
+    """Lightweight templates that keep semantics close."""
+    return [
+        f"{q} — quick guide",
+        f"{q} (overview and examples)",
+        f"Where to find {q}",
+        f"{q}: beginner-friendly resources",
+        f"Best reference for {q}",
+    ]
+
+
+def generate_paraphrases(query: str, lock_entities: list[str], per_query: int = 2) -> list[str]:
+    base, protected = _protect_entities(query, lock_entities)
+    candidates = _templates(base)
+    # Keep order & deduplicate
+    seen, unique = set(), []
+    for c in candidates:
+        if c not in seen:
+            seen.add(c)
+            unique.append(c)
+    unique = unique[:max(1, per_query)]
+    return [_restore_entities(c, protected) for c in unique]
+
+# ---------- Main ----------
+
+
+def main():
+    settings = load_settings()
+    in_csv = Path(settings.data_dir) / "queries" / "base_queries.csv"
+    out_csv = Path(settings.data_dir) / "paraphrases" / "paraphrases.csv"
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+
+    df = pd.read_csv(in_csv)
+    assert {"category", "query", "lock_entities"}.issubset(df.columns), \
+        "CSV must contain category, query, lock_entities"
+
+    model = SentenceTransformer(settings.embed_model)
+
+    rows: list[dict] = []
+    for _, row in df.iterrows():
+        category = str(row["category"]).strip()
+        query = str(row["query"]).strip()
+        locks = [x.strip()
+                 for x in str(row["lock_entities"]).split("|") if x.strip()]
+
+        # Generate 1–2 paraphrases
+        paras = generate_paraphrases(query, locks, per_query=2)
+
+        # Compute cosine(query, paraphrase) and filter
+        base_emb = model.encode([query], normalize_embeddings=True)[0]
+        for p in paras:
+            par_emb = model.encode([p], normalize_embeddings=True)[0]
+            cos = float(util.cos_sim(base_emb, par_emb))
+            if cos >= settings.cosine_min:  # guardrail from spec
+                rows.append({
+                    "category": category,
+                    "query": query,
+                    "paraphrase": p,
+                    "cosine": round(cos, 4)
+                })
+
+    out_df = pd.DataFrame(
+        rows, columns=["category", "query", "paraphrase", "cosine"])
+    out_df.to_csv(out_csv, index=False)
+    print(
+        f"Saved paraphrases to {out_csv} | kept {len(out_df)} rows (cos >= {settings.cosine_min})")
+
+
+if __name__ == "__main__":
+    main()
