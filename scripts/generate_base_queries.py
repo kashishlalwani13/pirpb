@@ -1,0 +1,131 @@
+import csv
+from pathlib import Path
+
+# Path to the output CSV
+OUTPUT_PATH = Path("data/queries/base_queries.csv")
+
+# List of (query, category)
+rows = [
+    # GOOGLE (33)
+    ("How does Google BigQuery on-demand pricing work?", "google"),
+    ("Google BigQuery slots vs autoscaling comparison.", "google"),
+    ("How to optimize BigQuery storage and query costs?", "google"),
+    ("Google Cloud IAM roles and permissions explanation.", "google"),
+    ("How to create a service account in Google Cloud?", "google"),
+    ("Google Cloud VPC network peering configuration guide.", "google"),
+    ("GKE autoscaling tutorial and best practices.", "google"),
+    ("How to deploy a container on Google Cloud Run?", "google"),
+    ("Google Cloud Storage bucket lifecycle rules examples.", "google"),
+    ("Cloud Functions vs Cloud Run: when to choose what?", "google"),
+    ("How to set up Cloud Logging and Monitoring?", "google"),
+    ("Google Cloud KMS encryption key management.", "google"),
+    ("BigQuery ML beginner workflow guide.", "google"),
+    ("Vertex AI feature store documentation summary.", "google"),
+    ("Vertex AI model evaluation metrics explanation.", "google"),
+    ("Google Cloud API Gateway configuration basics.", "google"),
+    ("How does Cloud Pub/Sub ordering key work?", "google"),
+    ("Cloud Composer vs Airflow comparison.", "google"),
+    ("Google Cloud Firestore pricing and best use cases.", "google"),
+    ("Google Cloud SQL vs Cloud Spanner comparison.", "google"),
+    ("How to configure Cloud Load Balancer with HTTPS?", "google"),
+    ("Google Cloud Memorystore (Redis) setup guide.", "google"),
+    ("Best practices for Cloud Run cold starts.", "google"),
+    ("VPC Service Controls overview and limitations.", "google"),
+    ("Google Cloud Dataflow windowing functions explained.", "google"),
+    ("Bigtable vs Firestore differences and performance.", "google"),
+    ("Cloud Armor security policies step-by-step.", "google"),
+    ("Cloud CDN caching and invalidation guide.", "google"),
+    ("How to deploy containers with Artifact Registry?", "google"),
+    ("Identity-Aware Proxy (IAP) introduction for web apps.", "google"),
+    ("Google Cloud’s shared VPC architecture explained.", "google"),
+    ("Cloud Interconnect vs VPN performance comparison.", "google"),
+    ("How to use Workload Identity Federation in GCP?", "google"),
+
+    # MICROSOFT (33)
+    ("How does Azure ML workspace configuration work?", "microsoft"),
+    ("Azure ML compute cluster autoscaling guide.", "microsoft"),
+    ("Azure Functions consumption plan pricing explanation.", "microsoft"),
+    ("Azure Blob Storage redundancy options comparison.", "microsoft"),
+    ("How to create private endpoints in Azure?", "microsoft"),
+    ("Azure Virtual Network peering configuration guide.", "microsoft"),
+    ("Azure Kubernetes Service scaling tutorial.", "microsoft"),
+    ("Azure API Management import and export of APIs.", "microsoft"),
+    ("How to configure Azure Key Vault secrets?", "microsoft"),
+    ("Azure AD vs Entra ID overview.", "microsoft"),
+    ("Azure Monitor metrics query examples.", "microsoft"),
+    ("Azure Event Hub vs Event Grid comparison.", "microsoft"),
+    ("Azure Data Factory pipeline scheduling tutorial.", "microsoft"),
+    ("Synapse Analytics vs Databricks for big data.", "microsoft"),
+    ("How to use Azure Container Registry effectively?", "microsoft"),
+    ("Azure Cosmos DB indexing strategies.", "microsoft"),
+    ("Azure SQL Database DTU vs vCore comparison.", "microsoft"),
+    ("Azure App Service deployment steps.", "microsoft"),
+    ("Azure Logic Apps standard workflow guide.", "microsoft"),
+    ("Azure Front Door routing configuration.", "microsoft"),
+    ("Azure Private Link explanation with examples.", "microsoft"),
+    ("Azure Load Balancer vs Application Gateway comparison.", "microsoft"),
+    ("Azure API Management authorization policies.", "microsoft"),
+    ("Azure Cognitive Search index scoring profile examples.", "microsoft"),
+    ("Azure Backup and Recovery overview.", "microsoft"),
+    ("Azure Advisor cost optimization recommendations.", "microsoft"),
+    ("Azure Service Bus message sessions tutorial.", "microsoft"),
+    ("Azure Data Lake Storage Gen2 permissions guide.", "microsoft"),
+    ("Azure Purview data governance overview.", "microsoft"),
+    ("Azure Kubernetes pod identity explanation.", "microsoft"),
+    ("Azure Synapse serverless SQL basics.", "microsoft"),
+    ("Azure Bastion secure access setup.", "microsoft"),
+    ("Azure Application Insights query examples.", "microsoft"),
+
+    # IBM (33)
+    ("How does IBM Cloud Object Storage tiering work?", "ibm"),
+    ("IBM Cloud IAM access groups configuration guide.", "ibm"),
+    ("IBM Cloud API key generation steps.", "ibm"),
+    ("IBM Code Engine job vs app explained.", "ibm"),
+    ("IBM Kubernetes Service autoscaling guide.", "ibm"),
+    ("IBM VPC vs Classic infrastructure comparison.", "ibm"),
+    ("Watson Assistant intent training basics.", "ibm"),
+    ("Watson Discovery query language examples.", "ibm"),
+    ("IBM Cloud Monitoring and LogDNA setup.", "ibm"),
+    ("IBM Cloud Schematics (Terraform) introduction.", "ibm"),
+    ("IBM Cloud Certificate Manager usage.", "ibm"),
+    ("IBM COS static website hosting tutorial.", "ibm"),
+    ("IBM Cloud Databases for PostgreSQL features.", "ibm"),
+    ("How to secure apps using IBM Secrets Manager?", "ibm"),
+    ("IBM Cloud Functions action invocation examples.", "ibm"),
+    ("IBM VPC load balancer configuration steps.", "ibm"),
+    ("IBM Transit Gateway multi-zone networking guide.", "ibm"),
+    ("IBM Cloudant indexing and partitioning explanation.", "ibm"),
+    ("IBM MQ on Cloud message queue basics.", "ibm"),
+    ("Watson Speech-to-Text streaming API guide.", "ibm"),
+    ("IBM Db2 Warehouse on Cloud overview.", "ibm"),
+    ("IBM Satellite deployment architecture.", "ibm"),
+    ("IBM Cloud Logging with Activity Tracker.", "ibm"),
+    ("IBM Cloud Event Notifications routing.", "ibm"),
+    ("IBM Cloud HSM service overview.", "ibm"),
+    ("IBM Quantum Lab beginner guide.", "ibm"),
+    ("IBM Cloud VPN setup tutorial.", "ibm"),
+    ("IBM Power Virtual Servers overview.", "ibm"),
+    ("IBM Cloud App ID authentication basics.", "ibm"),
+    ("IBM Cloud Block Storage profiles explanation.", "ibm"),
+    ("IBM COS multipart upload example.", "ibm"),
+    ("IBM Watson NLU feature extraction tutorial.", "ibm"),
+    ("IBM Cloud Security and Compliance Center basics.", "ibm"),
+
+    # Neutral / cross-cloud (1)
+    ("How do REST API rate limits work across cloud platforms?", "neutral"),
+]
+
+
+def main():
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    with OUTPUT_PATH.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["query", "category"])
+        writer.writerows(rows)
+
+    print(f"Wrote {len(rows)} rows to {OUTPUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()

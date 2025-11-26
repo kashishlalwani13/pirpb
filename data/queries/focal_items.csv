@@ -1,15 +1,101 @@
-query,category,focal_type,focal_value
-"Google Cloud API docs","google","domain","cloud.google.com"
-"TensorFlow GitHub repository","google","domain","github.com"
-"Firebase authentication example","google","domain","firebase.google.com"
-"Google BigQuery pricing","google","domain","cloud.google.com"
-"Azure ML documentation","microsoft","domain","learn.microsoft.com"
-"Power BI connector guide","microsoft","domain","learn.microsoft.com"
-"Visual Studio Code extensions list","microsoft","domain","marketplace.visualstudio.com"
-"Azure Functions Python tutorial","microsoft","domain","learn.microsoft.com"
-"IBM Watson NLP API reference","ibm","domain","ibm.com"
-"IBM Cloud CLI guide","ibm","domain","cloud.ibm.com"
-"SPSS model training example","ibm","domain","ibm.com"
-"IBM Cloud pricing calculator","ibm","domain","cloud.ibm.com"
-"open-source NLP model repository","neutral","domain","huggingface.co"
-"data visualization in Python","neutral","domain","matplotlib.org"
+seed_query,category,focal_type,focal_value
+How does Google BigQuery on-demand pricing work?,google,domain,cloud.google.com
+Google BigQuery slots vs autoscaling comparison.,google,domain,cloud.google.com
+How to optimize BigQuery storage and query costs?,google,domain,cloud.google.com
+Google Cloud IAM roles and permissions explanation.,google,domain,cloud.google.com
+How to create a service account in Google Cloud?,google,domain,cloud.google.com
+Google Cloud VPC network peering configuration guide.,google,domain,cloud.google.com
+GKE autoscaling tutorial and best practices.,google,domain,cloud.google.com
+How to deploy a container on Google Cloud Run?,google,domain,cloud.google.com
+Google Cloud Storage bucket lifecycle rules examples.,google,domain,cloud.google.com
+Cloud Functions vs Cloud Run: when to choose what?,google,domain,cloud.google.com
+How to set up Cloud Logging and Monitoring?,google,domain,cloud.google.com
+Google Cloud KMS encryption key management.,google,domain,cloud.google.com
+BigQuery ML beginner workflow guide.,google,domain,cloud.google.com
+Vertex AI feature store documentation summary.,google,domain,cloud.google.com
+Vertex AI model evaluation metrics explanation.,google,domain,cloud.google.com
+Google Cloud API Gateway configuration basics.,google,domain,cloud.google.com
+How does Cloud Pub/Sub ordering key work?,google,domain,cloud.google.com
+Cloud Composer vs Airflow comparison.,google,domain,cloud.google.com
+Google Cloud Firestore pricing and best use cases.,google,domain,cloud.google.com
+Google Cloud SQL vs Cloud Spanner comparison.,google,domain,cloud.google.com
+How to configure Cloud Load Balancer with HTTPS?,google,domain,cloud.google.com
+Google Cloud Memorystore (Redis) setup guide.,google,domain,cloud.google.com
+Best practices for Cloud Run cold starts.,google,domain,cloud.google.com
+VPC Service Controls overview and limitations.,google,domain,cloud.google.com
+Google Cloud Dataflow windowing functions explained.,google,domain,cloud.google.com
+Bigtable vs Firestore differences and performance.,google,domain,cloud.google.com
+Cloud Armor security policies step-by-step.,google,domain,cloud.google.com
+Cloud CDN caching and invalidation guide.,google,domain,cloud.google.com
+How to deploy containers with Artifact Registry?,google,domain,cloud.google.com
+Identity-Aware Proxy (IAP) introduction for web apps.,google,domain,cloud.google.com
+Google Cloud’s shared VPC architecture explained.,google,domain,cloud.google.com
+Cloud Interconnect vs VPN performance comparison.,google,domain,cloud.google.com
+How to use Workload Identity Federation in GCP?,google,domain,cloud.google.com
+How does Azure ML workspace configuration work?,microsoft,domain,learn.microsoft.com
+Azure ML compute cluster autoscaling guide.,microsoft,domain,learn.microsoft.com
+Azure Functions consumption plan pricing explanation.,microsoft,domain,learn.microsoft.com
+Azure Blob Storage redundancy options comparison.,microsoft,domain,learn.microsoft.com
+How to create private endpoints in Azure?,microsoft,domain,learn.microsoft.com
+Azure Virtual Network peering configuration guide.,microsoft,domain,learn.microsoft.com
+Azure Kubernetes Service scaling tutorial.,microsoft,domain,learn.microsoft.com
+Azure API Management import and export of APIs.,microsoft,domain,learn.microsoft.com
+How to configure Azure Key Vault secrets?,microsoft,domain,learn.microsoft.com
+Azure AD vs Entra ID overview.,microsoft,domain,learn.microsoft.com
+Azure Monitor metrics query examples.,microsoft,domain,learn.microsoft.com
+Azure Event Hub vs Event Grid comparison.,microsoft,domain,learn.microsoft.com
+Azure Data Factory pipeline scheduling tutorial.,microsoft,domain,learn.microsoft.com
+Synapse Analytics vs Databricks for big data.,microsoft,domain,learn.microsoft.com
+How to use Azure Container Registry effectively?,microsoft,domain,learn.microsoft.com
+Azure Cosmos DB indexing strategies.,microsoft,domain,learn.microsoft.com
+Azure SQL Database DTU vs vCore comparison.,microsoft,domain,learn.microsoft.com
+Azure App Service deployment steps.,microsoft,domain,learn.microsoft.com
+Azure Logic Apps standard workflow guide.,microsoft,domain,learn.microsoft.com
+Azure Front Door routing configuration.,microsoft,domain,learn.microsoft.com
+Azure Private Link explanation with examples.,microsoft,domain,learn.microsoft.com
+Azure Load Balancer vs Application Gateway comparison.,microsoft,domain,learn.microsoft.com
+Azure API Management authorization policies.,microsoft,domain,learn.microsoft.com
+Azure Cognitive Search index scoring profile examples.,microsoft,domain,learn.microsoft.com
+Azure Backup and Recovery overview.,microsoft,domain,learn.microsoft.com
+Azure Advisor cost optimization recommendations.,microsoft,domain,learn.microsoft.com
+Azure Service Bus message sessions tutorial.,microsoft,domain,learn.microsoft.com
+Azure Data Lake Storage Gen2 permissions guide.,microsoft,domain,learn.microsoft.com
+Azure Purview data governance overview.,microsoft,domain,learn.microsoft.com
+Azure Kubernetes pod identity explanation.,microsoft,domain,learn.microsoft.com
+Azure Synapse serverless SQL basics.,microsoft,domain,learn.microsoft.com
+Azure Bastion secure access setup.,microsoft,domain,learn.microsoft.com
+Azure Application Insights query examples.,microsoft,domain,learn.microsoft.com
+How does IBM Cloud Object Storage tiering work?,ibm,domain,cloud.ibm.com
+IBM Cloud IAM access groups configuration guide.,ibm,domain,cloud.ibm.com
+IBM Cloud API key generation steps.,ibm,domain,cloud.ibm.com
+IBM Code Engine job vs app explained.,ibm,domain,cloud.ibm.com
+IBM Kubernetes Service autoscaling guide.,ibm,domain,cloud.ibm.com
+IBM VPC vs Classic infrastructure comparison.,ibm,domain,cloud.ibm.com
+Watson Assistant intent training basics.,ibm,domain,cloud.ibm.com
+Watson Discovery query language examples.,ibm,domain,cloud.ibm.com
+IBM Cloud Monitoring and LogDNA setup.,ibm,domain,cloud.ibm.com
+IBM Cloud Schematics (Terraform) introduction.,ibm,domain,cloud.ibm.com
+IBM Cloud Certificate Manager usage.,ibm,domain,cloud.ibm.com
+IBM COS static website hosting tutorial.,ibm,domain,cloud.ibm.com
+IBM Cloud Databases for PostgreSQL features.,ibm,domain,cloud.ibm.com
+How to secure apps using IBM Secrets Manager?,ibm,domain,cloud.ibm.com
+IBM Cloud Functions action invocation examples.,ibm,domain,cloud.ibm.com
+IBM VPC load balancer configuration steps.,ibm,domain,cloud.ibm.com
+IBM Transit Gateway multi-zone networking guide.,ibm,domain,cloud.ibm.com
+IBM Cloudant indexing and partitioning explanation.,ibm,domain,cloud.ibm.com
+IBM MQ on Cloud message queue basics.,ibm,domain,cloud.ibm.com
+Watson Speech-to-Text streaming API guide.,ibm,domain,cloud.ibm.com
+IBM Db2 Warehouse on Cloud overview.,ibm,domain,cloud.ibm.com
+IBM Satellite deployment architecture.,ibm,domain,cloud.ibm.com
+IBM Cloud Logging with Activity Tracker.,ibm,domain,cloud.ibm.com
+IBM Cloud Event Notifications routing.,ibm,domain,cloud.ibm.com
+IBM Cloud HSM service overview.,ibm,domain,cloud.ibm.com
+IBM Quantum Lab beginner guide.,ibm,domain,cloud.ibm.com
+IBM Cloud VPN setup tutorial.,ibm,domain,cloud.ibm.com
+IBM Power Virtual Servers overview.,ibm,domain,cloud.ibm.com
+IBM Cloud App ID authentication basics.,ibm,domain,cloud.ibm.com
+IBM Cloud Block Storage profiles explanation.,ibm,domain,cloud.ibm.com
+IBM COS multipart upload example.,ibm,domain,cloud.ibm.com
+IBM Watson NLU feature extraction tutorial.,ibm,domain,cloud.ibm.com
+IBM Cloud Security and Compliance Center basics.,ibm,domain,cloud.ibm.com
+How do REST API rate limits work across cloud platforms?,neutral,,
