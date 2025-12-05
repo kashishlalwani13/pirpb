@@ -1,101 +1,105 @@
-query,category
-How does Google BigQuery on-demand pricing work?,google
-Google BigQuery slots vs autoscaling comparison.,google
-How to optimize BigQuery storage and query costs?,google
-Google Cloud IAM roles and permissions explanation.,google
-How to create a service account in Google Cloud?,google
-Google Cloud VPC network peering configuration guide.,google
-GKE autoscaling tutorial and best practices.,google
-How to deploy a container on Google Cloud Run?,google
-Google Cloud Storage bucket lifecycle rules examples.,google
-Cloud Functions vs Cloud Run: when to choose what?,google
-How to set up Cloud Logging and Monitoring?,google
-Google Cloud KMS encryption key management.,google
-BigQuery ML beginner workflow guide.,google
-Vertex AI feature store documentation summary.,google
-Vertex AI model evaluation metrics explanation.,google
-Google Cloud API Gateway configuration basics.,google
-How does Cloud Pub/Sub ordering key work?,google
-Cloud Composer vs Airflow comparison.,google
-Google Cloud Firestore pricing and best use cases.,google
-Google Cloud SQL vs Cloud Spanner comparison.,google
-How to configure Cloud Load Balancer with HTTPS?,google
-Google Cloud Memorystore (Redis) setup guide.,google
-Best practices for Cloud Run cold starts.,google
-VPC Service Controls overview and limitations.,google
-Google Cloud Dataflow windowing functions explained.,google
-Bigtable vs Firestore differences and performance.,google
-Cloud Armor security policies step-by-step.,google
-Cloud CDN caching and invalidation guide.,google
-How to deploy containers with Artifact Registry?,google
-Identity-Aware Proxy (IAP) introduction for web apps.,google
-Google Cloud’s shared VPC architecture explained.,google
-Cloud Interconnect vs VPN performance comparison.,google
-How to use Workload Identity Federation in GCP?,google
-How does Azure ML workspace configuration work?,microsoft
-Azure ML compute cluster autoscaling guide.,microsoft
-Azure Functions consumption plan pricing explanation.,microsoft
-Azure Blob Storage redundancy options comparison.,microsoft
-How to create private endpoints in Azure?,microsoft
-Azure Virtual Network peering configuration guide.,microsoft
-Azure Kubernetes Service scaling tutorial.,microsoft
-Azure API Management import and export of APIs.,microsoft
-How to configure Azure Key Vault secrets?,microsoft
-Azure AD vs Entra ID overview.,microsoft
-Azure Monitor metrics query examples.,microsoft
-Azure Event Hub vs Event Grid comparison.,microsoft
-Azure Data Factory pipeline scheduling tutorial.,microsoft
-Synapse Analytics vs Databricks for big data.,microsoft
-How to use Azure Container Registry effectively?,microsoft
-Azure Cosmos DB indexing strategies.,microsoft
-Azure SQL Database DTU vs vCore comparison.,microsoft
-Azure App Service deployment steps.,microsoft
-Azure Logic Apps standard workflow guide.,microsoft
-Azure Front Door routing configuration.,microsoft
-Azure Private Link explanation with examples.,microsoft
-Azure Load Balancer vs Application Gateway comparison.,microsoft
-Azure API Management authorization policies.,microsoft
-Azure Cognitive Search index scoring profile examples.,microsoft
-Azure Backup and Recovery overview.,microsoft
-Azure Advisor cost optimization recommendations.,microsoft
-Azure Service Bus message sessions tutorial.,microsoft
-Azure Data Lake Storage Gen2 permissions guide.,microsoft
-Azure Purview data governance overview.,microsoft
-Azure Kubernetes pod identity explanation.,microsoft
-Azure Synapse serverless SQL basics.,microsoft
-Azure Bastion secure access setup.,microsoft
-Azure Application Insights query examples.,microsoft
-How does IBM Cloud Object Storage tiering work?,ibm
-IBM Cloud IAM access groups configuration guide.,ibm
-IBM Cloud API key generation steps.,ibm
-IBM Code Engine job vs app explained.,ibm
-IBM Kubernetes Service autoscaling guide.,ibm
-IBM VPC vs Classic infrastructure comparison.,ibm
-Watson Assistant intent training basics.,ibm
-Watson Discovery query language examples.,ibm
-IBM Cloud Monitoring and LogDNA setup.,ibm
-IBM Cloud Schematics (Terraform) introduction.,ibm
-IBM Cloud Certificate Manager usage.,ibm
-IBM COS static website hosting tutorial.,ibm
-IBM Cloud Databases for PostgreSQL features.,ibm
-How to secure apps using IBM Secrets Manager?,ibm
-IBM Cloud Functions action invocation examples.,ibm
-IBM VPC load balancer configuration steps.,ibm
-IBM Transit Gateway multi-zone networking guide.,ibm
-IBM Cloudant indexing and partitioning explanation.,ibm
-IBM MQ on Cloud message queue basics.,ibm
-Watson Speech-to-Text streaming API guide.,ibm
-IBM Db2 Warehouse on Cloud overview.,ibm
-IBM Satellite deployment architecture.,ibm
-IBM Cloud Logging with Activity Tracker.,ibm
-IBM Cloud Event Notifications routing.,ibm
-IBM Cloud HSM service overview.,ibm
-IBM Quantum Lab beginner guide.,ibm
-IBM Cloud VPN setup tutorial.,ibm
-IBM Power Virtual Servers overview.,ibm
-IBM Cloud App ID authentication basics.,ibm
-IBM Cloud Block Storage profiles explanation.,ibm
-IBM COS multipart upload example.,ibm
-IBM Watson NLU feature extraction tutorial.,ibm
-IBM Cloud Security and Compliance Center basics.,ibm
-How do REST API rate limits work across cloud platforms?,neutral
+query,category,lock_entities
+How does Google BigQuery on-demand pricing work?,google,False
+Google BigQuery slots vs autoscaling comparison.,google,False
+How to optimize BigQuery storage and query costs?,google,False
+Google Cloud IAM roles and permissions explanation.,google,False
+How to create a service account in Google Cloud?,google,False
+Google Cloud VPC network peering configuration guide.,google,False
+GKE autoscaling tutorial and best practices.,google,False
+How to deploy a container on Google Cloud Run?,google,False
+Google Cloud Storage bucket lifecycle rules examples.,google,False
+Cloud Functions vs Cloud Run: when to choose what?,google,False
+How to set up Cloud Logging and Monitoring?,google,False
+Google Cloud KMS encryption key management.,google,False
+BigQuery ML beginner workflow guide.,google,False
+Vertex AI feature store documentation summary.,google,False
+Vertex AI model evaluation metrics explanation.,google,False
+Google Cloud API Gateway configuration basics.,google,False
+How does Cloud Pub/Sub ordering key work?,google,False
+Cloud Composer vs Airflow comparison.,google,False
+Google Cloud Firestore pricing and best use cases.,google,False
+Google Cloud SQL vs Cloud Spanner comparison.,google,False
+How to configure Cloud Load Balancer with HTTPS?,google,False
+Google Cloud Memorystore (Redis) setup guide.,google,False
+Best practices for Cloud Run cold starts.,google,False
+VPC Service Controls overview and limitations.,google,False
+Google Cloud Dataflow windowing functions explained.,google,False
+Bigtable vs Firestore differences and performance.,google,False
+Cloud Armor security policies step-by-step.,google,False
+Cloud CDN caching and invalidation guide.,google,False
+How to deploy containers with Artifact Registry?,google,False
+Identity-Aware Proxy (IAP) introduction for web apps.,google,False
+Google Cloud’s shared VPC architecture explained.,google,False
+Cloud Interconnect vs VPN performance comparison.,google,False
+How to use Workload Identity Federation in GCP?,google,False
+How does Azure ML workspace configuration work?,microsoft,False
+Azure ML compute cluster autoscaling guide.,microsoft,False
+Azure Functions consumption plan pricing explanation.,microsoft,False
+Azure Blob Storage redundancy options comparison.,microsoft,False
+How to create private endpoints in Azure?,microsoft,False
+Azure Virtual Network peering configuration guide.,microsoft,False
+Azure Kubernetes Service scaling tutorial.,microsoft,False
+Azure API Management import and export of APIs.,microsoft,False
+How to configure Azure Key Vault secrets?,microsoft,False
+Azure AD vs Entra ID overview.,microsoft,False
+Azure Monitor metrics query examples.,microsoft,False
+Azure Event Hub vs Event Grid comparison.,microsoft,False
+Azure Data Factory pipeline scheduling tutorial.,microsoft,False
+Synapse Analytics vs Databricks for big data.,microsoft,False
+How to use Azure Container Registry effectively?,microsoft,False
+Azure Cosmos DB indexing strategies.,microsoft,False
+Azure SQL Database DTU vs vCore comparison.,microsoft,False
+Azure App Service deployment steps.,microsoft,False
+Azure Logic Apps standard workflow guide.,microsoft,False
+Azure Front Door routing configuration.,microsoft,False
+Azure Private Link explanation with examples.,microsoft,False
+Azure Load Balancer vs Application Gateway comparison.,microsoft,False
+Azure API Management authorization policies.,microsoft,False
+Azure Cognitive Search index scoring profile examples.,microsoft,False
+Azure Backup and Recovery overview.,microsoft,False
+Azure Advisor cost optimization recommendations.,microsoft,False
+Azure Service Bus message sessions tutorial.,microsoft,False
+Azure Data Lake Storage Gen2 permissions guide.,microsoft,False
+Azure Purview data governance overview.,microsoft,False
+Azure Kubernetes pod identity explanation.,microsoft,False
+Azure Synapse serverless SQL basics.,microsoft,False
+Azure Bastion secure access setup.,microsoft,False
+Azure Application Insights query examples.,microsoft,False
+How does IBM Cloud Object Storage tiering work?,ibm,False
+IBM Cloud IAM access groups configuration guide.,ibm,False
+IBM Cloud API key generation steps.,ibm,False
+IBM Code Engine job vs app explained.,ibm,False
+IBM Kubernetes Service autoscaling guide.,ibm,False
+IBM VPC vs Classic infrastructure comparison.,ibm,False
+Watson Assistant intent training basics.,ibm,False
+Watson Discovery query language examples.,ibm,False
+IBM Cloud Monitoring and LogDNA setup.,ibm,False
+IBM Cloud Schematics (Terraform) introduction.,ibm,False
+IBM Cloud Certificate Manager usage.,ibm,False
+IBM COS static website hosting tutorial.,ibm,False
+IBM Cloud Databases for PostgreSQL features.,ibm,False
+How to secure apps using IBM Secrets Manager?,ibm,False
+IBM Cloud Functions action invocation examples.,ibm,False
+IBM VPC load balancer configuration steps.,ibm,False
+IBM Transit Gateway multi-zone networking guide.,ibm,False
+IBM Cloudant indexing and partitioning explanation.,ibm,False
+IBM MQ on Cloud message queue basics.,ibm,False
+Watson Speech-to-Text streaming API guide.,ibm,False
+IBM Db2 Warehouse on Cloud overview.,ibm,False
+IBM Satellite deployment architecture.,ibm,False
+IBM Cloud Logging with Activity Tracker.,ibm,False
+IBM Cloud Event Notifications routing.,ibm,False
+IBM Cloud HSM service overview.,ibm,False
+IBM Quantum Lab beginner guide.,ibm,False
+IBM Cloud VPN setup tutorial.,ibm,False
+IBM Power Virtual Servers overview.,ibm,False
+IBM Cloud App ID authentication basics.,ibm,False
+IBM Cloud Block Storage profiles explanation.,ibm,False
+IBM COS multipart upload example.,ibm,False
+IBM Watson NLU feature extraction tutorial.,ibm,False
+IBM Cloud Security and Compliance Center basics.,ibm,False
+How do REST API rate limits work across cloud platforms?,neutral,False
+What is vendor lock-in in cloud services?,neutral,False
+How does cloud autoscaling generally work across providers?,neutral,False
+Multi-cloud networking best practices overview.,neutral,False
+How do cloud IAM models differ conceptually across vendors?,neutral,False

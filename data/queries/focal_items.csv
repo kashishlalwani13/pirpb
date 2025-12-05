@@ -1,4 +1,4 @@
-seed_query,category,focal_type,focal_value
+query,category,focal_type,focal_value
 How does Google BigQuery on-demand pricing work?,google,domain,cloud.google.com
 Google BigQuery slots vs autoscaling comparison.,google,domain,cloud.google.com
 How to optimize BigQuery storage and query costs?,google,domain,cloud.google.com
@@ -99,3 +99,7 @@ IBM COS multipart upload example.,ibm,domain,cloud.ibm.com
 IBM Watson NLU feature extraction tutorial.,ibm,domain,cloud.ibm.com
 IBM Cloud Security and Compliance Center basics.,ibm,domain,cloud.ibm.com
 How do REST API rate limits work across cloud platforms?,neutral,,
+What is vendor lock-in in cloud services?,neutral,,
+How does cloud autoscaling generally work across providers?,neutral,,
+Multi-cloud networking best practices overview.,neutral,,
+How do cloud IAM models differ conceptually across vendors?,neutral,,

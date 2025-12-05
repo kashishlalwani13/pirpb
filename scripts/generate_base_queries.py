@@ -111,8 +111,13 @@ rows = [
     ("IBM Watson NLU feature extraction tutorial.", "ibm"),
     ("IBM Cloud Security and Compliance Center basics.", "ibm"),
 
-    # Neutral / cross-cloud (1)
+    # NEUTRAL (5)
     ("How do REST API rate limits work across cloud platforms?", "neutral"),
+    ("What is vendor lock-in in cloud services?", "neutral"),
+    ("How does cloud autoscaling generally work across providers?", "neutral"),
+    ("Multi-cloud networking best practices overview.", "neutral"),
+    ("How do cloud IAM models differ conceptually across vendors?", "neutral"),
+
 ]
 
 

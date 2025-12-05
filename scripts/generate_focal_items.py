@@ -26,7 +26,8 @@ def main():
             category = row["category"]
             focal_domain = FOCAL_DOMAIN_BY_CATEGORY.get(category, "")
             rows.append({
-                "seed_query": query,
+                # IMPORTANT: item_pir.py expects this column name:
+                "query": query,
                 "category": category,
                 "focal_type": "domain" if focal_domain else "",
                 "focal_value": focal_domain,
@@ -36,7 +37,7 @@ def main():
     with OUTPUT_PATH.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["seed_query", "category", "focal_type", "focal_value"],
+            fieldnames=["query", "category", "focal_type", "focal_value"],
         )
         writer.writeheader()
         writer.writerows(rows)
